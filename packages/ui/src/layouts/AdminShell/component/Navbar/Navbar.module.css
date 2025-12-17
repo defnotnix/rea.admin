@@ -1,0 +1,19 @@
+.navLeftLine {
+  position: absolute;
+  height: calc(100% - 12px);
+  left: 16px;
+  width: 2px;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.navLabelDot {
+    display: block;
+    height: 4px;
+    width: 4px;
+    border-radius: 4px;
+    background: var(--mantine-color-brand-5);
+    position: absolute;
+    left: 15px;
+    top: 6px;
+}
