@@ -1,0 +1,29 @@
+.iconLight {
+  display: none;
+}
+
+.iconDark {
+  display: none;
+}
+
+:global(html[data-mantine-color-scheme="light"]) .iconLight {
+  display: inline-flex;
+}
+
+:global(html[data-mantine-color-scheme="dark"]) .iconDark {
+  display: inline-flex;
+}
+
+.backdrop {
+  position: fixed;
+  display: block;
+  height: 300px;
+  width: 1000px;
+  background: #1061da;
+  z-index: -1;
+  top: calc(50vh - 150px);
+  left: calc(50% - 500px);
+  filter: blur(100);
+  transform: rotate(-20deg);
+  opacity: .1;
+}

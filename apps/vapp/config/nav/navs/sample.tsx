@@ -8,7 +8,7 @@ import {
   UsersIcon,
 } from "@phosphor-icons/react";
 
-import { PropAdminNavItems } from "@vframework/ui";
+import { PropAdminNavItems } from "@vf/admin";
 
 export const navItems: PropAdminNavItems[] = [
   {

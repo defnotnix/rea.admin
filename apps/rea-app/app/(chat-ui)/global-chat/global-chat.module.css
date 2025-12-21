@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  height: calc(100vh - 60px);
+  width: 100%;
+}
+
+.chatSection {
+  display: flex;
+  flex-direction: column;
+  background: var(--mantine-color-dark-6);
+  border-right: 1px solid var(--mantine-color-dark-5);
+}
+
+.chatHeader {
+  padding: 1rem;
+  border-bottom: 1px solid var(--mantine-color-dark-5);
+  background: var(--mantine-color-dark-6);
+}
+
+.messagesArea {
+  flex: 1;
+  background: var(--mantine-color-dark-7);
+  overflow-y: auto;
+}
+
+.message {
+  padding: 0.5rem 0;
+  border-radius: 4px;
+}
+
+.message:hover {
+  background: var(--mantine-color-dark-6);
+  padding-left: 0.5rem;
+}
+
+.messageContent {
+  line-height: 1.5;
+  color: var(--mantine-color-gray-1);
+}
+
+.inputArea {
+  padding: 1rem;
+  border-top: 1px solid var(--mantine-color-dark-5);
+  background: var(--mantine-color-dark-6);
+}
+
+.input {
+  flex: 1;
+}
+
+.sendButton {
+  height: auto;
+  padding: 0.75rem 1rem;
+}
+
+.agendaSection {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: var(--mantine-color-dark-6);
+  overflow-y: auto;
+}
+
+.agendaBox {
+  background: var(--mantine-color-dark-7);
+  border: 1px solid var(--mantine-color-dark-5);
+}
+
+.agendaItem {
+  background: var(--mantine-color-dark-6);
+  border: 1px solid var(--mantine-color-dark-5);
+  transition: all 0.2s ease;
+}
+
+.agendaItem:hover {
+  border-color: var(--mantine-color-blue-6);
+  background: var(--mantine-color-dark-5);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .chatSection {
+    min-height: 60vh;
+  }
+
+  .agendaSection {
+    min-height: 40vh;
+  }
+}

@@ -1,0 +1,11 @@
+html {
+  background-color: #f9f9fa;
+}
+
+html[data-mantine-color-scheme="dark"] {
+  background-color: #14161f;
+}
+
+body {
+  background: none !important;
+}

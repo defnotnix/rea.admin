@@ -40,8 +40,8 @@
     "react-dom": "19.2.0",
     "recharts": "^3.4.1",
     "zod": "^4.1.12",
-    "@vframework/ui": "workspace:*",
-    "@vframework/core": "workspace:*"
+    "@vf/admin": "workspace:*",
+    "@vf/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20",

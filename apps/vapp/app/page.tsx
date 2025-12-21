@@ -8,13 +8,9 @@ export default function () {
 
   return (
     <>
-      <button
-        onClick={() => {
-          Router.push("/sustained");
-        }}
-      >
-        Sustained Module
-      </button>
+      <Center h="100vh">
+        <Button variant="subtle" c="dark.9">vee-framework</Button>
+      </Center>
     </>
   );
 }

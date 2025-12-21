@@ -6,7 +6,7 @@ import {
   useDataTableContext,
   DataTableContext,
 } from "./DataTableWrapper.context";
-import { autoSearch } from "@vframework/core";
+import { autoSearch } from "@vf/core";
 import { useDataTableWrapperStore } from "./DataTableWrapper.store";
 import { PropDataTableWrapper } from "./DataTableWrapper.type";
 

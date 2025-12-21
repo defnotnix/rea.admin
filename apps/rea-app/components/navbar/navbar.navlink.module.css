@@ -1,0 +1,18 @@
+.root {
+  border-radius: var(--mantine-radius-md);
+  padding: 4px 6px;
+
+  opacity: 0.6;
+
+  &[data-active="true"] {
+    opacity: 1;
+  }
+}
+
+.body {
+  padding: 0;
+}
+
+.label {
+  font-weight: 600;
+}

@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, useEffect } from "react";
 //vfw
-import { QueryWrapper, AppWrapper } from "@vframework/ui";
+import { QueryWrapper, AppWrapper } from "@vf/admin";
 //themes
 import { configThemeMantine } from "@/config/theme";
 //styles
@@ -14,7 +14,7 @@ import "@mantine/spotlight/styles.css";
 import "@mantine/notifications/styles.css";
 
 import "@/public/styles/global.css";
-import { PreferenceWrapper, RolePermsWrapper } from "@vframework/core";
+import { PreferenceWrapper, RolePermsWrapper } from "@vf/core";
 
 //oauth
 

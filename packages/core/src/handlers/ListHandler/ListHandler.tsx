@@ -4,7 +4,7 @@ import { useEffect, useMemo, useReducer } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useDebouncedState } from "@mantine/hooks";
 
-import { autoSearch } from "@vframework/core";
+import { autoSearch } from "@vf/core";
 import { PropListHandler } from "./ListHandler.type";
 import { Context } from "./ListHandler.context";
 
@@ -70,7 +70,7 @@ function reducer(
 
 export function ListHandler({
   endpoint = "",
-  moduleKey = ["vframework", "default"],
+  moduleKey = ["vf", "default"],
   // api
   getRecords,
   getParams,

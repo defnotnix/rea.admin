@@ -1,0 +1,15 @@
+.iconLight {
+  display: none;
+}
+
+.iconDark {
+  display: none;
+}
+
+:global(html[data-mantine-color-scheme="light"]) .iconLight {
+  display: inline-flex;
+}
+
+:global(html[data-mantine-color-scheme="dark"]) .iconDark {
+  display: inline-flex;
+}

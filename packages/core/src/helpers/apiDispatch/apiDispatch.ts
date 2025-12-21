@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { triggerNotification } from "@vframework/ui";
+import { triggerNotification } from "@vf/admin";
 
 async function handleTokenExpiry() {
   const res = await axios

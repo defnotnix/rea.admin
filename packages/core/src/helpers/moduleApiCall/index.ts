@@ -1,4 +1,4 @@
-import { apiDispatch } from "@vframework/core";
+import { apiDispatch } from "@vf/core";
 
 async function getRecords({
   endpoint,
