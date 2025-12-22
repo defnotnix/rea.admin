@@ -1,0 +1,12 @@
+.messageItem {
+  transition: 0.2s ease-in-out;
+  position: relative;
+}
+
+.messageItem:hover {
+  background-color: #f0f0f0;
+}
+
+[data-mantine-color-scheme="dark"] .messageItem:hover {
+  background-color: var(--mantine-color-dark-5);
+}

@@ -11,3 +11,11 @@
   transform: rotate(-20deg);
   opacity: 0.1;
 }
+
+.html[data-mantine-color-scheme="light"] body {
+  background-color: #f5f5f7; /* your light bg */
+}
+
+.html[data-mantine-color-scheme="dark"] body {
+  color: var(--mantine-color-gray-0);
+}

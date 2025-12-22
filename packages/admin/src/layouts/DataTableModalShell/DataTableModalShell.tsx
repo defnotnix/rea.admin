@@ -1,5 +1,9 @@
 "use client";
 
-export function DataTableModalShell() {
-  return <div>DataTableModalShell</div>;
+export function DataTableModalShell({{children}: {children: React.ReactNode}}) {
+  return <div>
+
+{children}
+
+  </div>;
 }
