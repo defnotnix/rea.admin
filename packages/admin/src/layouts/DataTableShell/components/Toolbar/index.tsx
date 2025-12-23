@@ -21,7 +21,7 @@ import {
 } from "@phosphor-icons/react";
 
 import { useDebouncedValue } from "@mantine/hooks";
-import { DataTableWrapper } from "@vf/core";
+import { DataTableWrapper } from "@settle/core";
 import { PropDataTableToolbar } from "../../DataTableShell.type";
 import { DataTableShellFilter } from "../TableFilters";
 import { DataTableShellSearchFilters } from "../SearchFilters";

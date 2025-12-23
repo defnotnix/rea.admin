@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { Box, Stack } from "@mantine/core";
-import { Tabs } from "@vf/admin";
+import { Tabs } from "@settle/admin";
 
 import { PropDataTableShell } from "./DataTableShell.type";
 import { DataTableShellDataTable } from "./components/DataTable";
@@ -29,6 +29,8 @@ export function DataTableShell({
   bread,
   hideFilters,
   filterList = [],
+  newButtonHref,
+  onNewClick,
 }: PropDataTableShell) {
   // * CONTEXT
 
@@ -77,7 +79,7 @@ export function DataTableShell({
   return (
     <DataTableShellContext.Provider value={contextValue}>
       <Stack gap={0}>
-        <DataTableShellHeader bread={bread} moduleInfo={moduleInfo} />
+        <DataTableShellHeader bread={bread} moduleInfo={moduleInfo} newButtonHref={newButtonHref} sustained={sustained} onNewClick={onNewClick} />
 
         {/* Tabs */}
         <Tabs px="xs" active={activeTab} onTabChange={setActiveTab} tabs={tabs} />

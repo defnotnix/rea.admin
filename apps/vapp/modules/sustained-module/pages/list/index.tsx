@@ -1,6 +1,6 @@
 "use client";
 
-import { DataTableShell } from "@vf/admin";
+import { DataTableShell } from "@settle/admin";
 import { moduleInfo } from "../../module.config";
 import {
   PauseIcon,
@@ -9,7 +9,7 @@ import {
   UsersIcon,
 } from "@phosphor-icons/react";
 import { Badge } from "@mantine/core";
-import { DataTableWrapper, ListHandler } from "@vf/core";
+import { DataTableWrapper, ListHandler } from "@settle/core";
 import { getRecords } from "../../module.api";
 import { columns } from "./list.columns";
 

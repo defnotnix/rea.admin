@@ -1,7 +1,6 @@
 "use client";
 
 import axios from "axios";
-import { triggerNotification } from "@vf/admin";
 
 async function handleTokenExpiry() {
   const res = await axios
@@ -29,13 +28,7 @@ async function handleTokenExpiry() {
   return res;
 }
 
-function triggerLogout(res: any) {
-  triggerNotification.auth.isTokenExpired({
-    onClose: () => {
-      window.location.href = "/";
-    },
-  });
-}
+function triggerLogout(res: any) {}
 
 export async function get({
   endpoint = "",
@@ -67,14 +60,24 @@ export async function get({
         return await get({ endpoint, params });
       } else {
         triggerLogout(res);
-        throw err;
+        return {
+          err: true,
+          data: null,
+        };
       }
     } else {
       if (error?.code == "ERR_NETWORK") {
         console.log("Server Offline");
+        return {
+          err: true,
+          data: null,
+        };
       } else {
         err.object = error;
-        throw err;
+        return {
+          err: true,
+          data: null,
+        };
       }
     }
   }
@@ -112,11 +115,17 @@ export async function post({
         return await post({ endpoint, body, headers });
       } else {
         triggerLogout(res);
-        throw err;
+        return {
+          err: true,
+          data: null,
+        };
       }
     } else {
       err.object = error;
-      throw err;
+      return {
+        err: true,
+        data: null,
+      };
     }
   }
 }
@@ -151,11 +160,17 @@ export async function patch({
         return await patch({ endpoint, body, headers });
       } else {
         triggerLogout(res);
-        throw err;
+        return {
+          err: true,
+          data: null,
+        };
       }
     } else {
       err.object = error;
-      throw err;
+      return {
+        err: true,
+        data: null,
+      };
     }
   }
 }
@@ -190,11 +205,17 @@ export async function del({
         return await del({ endpoint, id, headers });
       } else {
         triggerLogout(res);
-        throw err;
+        return {
+          err: true,
+          data: null,
+        };
       }
     } else {
       err.object = error;
-      throw err;
+      return {
+        err: true,
+        data: null,
+      };
     }
   }
 }

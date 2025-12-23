@@ -17,7 +17,7 @@ import { zodResolver } from "mantine-form-zod-resolver";
 import { PropFormHandler } from "./FormHandler.type";
 import { useMutation } from "@tanstack/react-query";
 
-import { formatJsonSubmit as toFormData } from "@vf/core";
+import { formatJsonSubmit as toFormData } from "@settle/core";
 
 export function FormHandler({
   // * form

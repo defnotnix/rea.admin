@@ -2,7 +2,7 @@
 
 import { Button, Group, ThemeIcon } from "@mantine/core";
 import { XIcon } from "@phosphor-icons/react";
-import { DataTableWrapper } from "@vf/core";
+import { DataTableWrapper } from "@settle/core";
 
 export function DataTableShellSearchFilters() {
   const { filters, removeFilter } = DataTableWrapper.useDataTableWrapperStore();

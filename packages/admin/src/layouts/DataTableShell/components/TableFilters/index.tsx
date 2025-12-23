@@ -13,7 +13,7 @@ import {
 } from "@phosphor-icons/react";
 
 import { randomId } from "@mantine/hooks";
-import { DataTableWrapper } from "@vf/core";
+import { DataTableWrapper } from "@settle/core";
 
 // default icons based on filter type
 const typeMap = {

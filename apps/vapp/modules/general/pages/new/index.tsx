@@ -17,8 +17,8 @@ import {
   TextInput,
 } from "@mantine/core";
 //vf
-import { FormWrapper } from "@vf/core";
-import { triggerNotification } from "@vf/admin";
+import { FormWrapper } from "@settle/core";
+import { triggerNotification } from "@settle/admin";
 //icons
 
 //styles

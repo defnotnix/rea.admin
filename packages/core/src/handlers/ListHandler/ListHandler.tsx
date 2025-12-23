@@ -4,7 +4,7 @@ import { useEffect, useMemo, useReducer } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useDebouncedState } from "@mantine/hooks";
 
-import { autoSearch } from "@vf/core";
+import { autoSearch } from "@settle/core";
 import { PropListHandler } from "./ListHandler.type";
 import { Context } from "./ListHandler.context";
 

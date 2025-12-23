@@ -1,8 +1,7 @@
-import { PropGetRecords } from "@vf/core";
 import { ReactNode } from "react";
 
 export type PropListHandler = {
-  getRecords: (apiProps: PropGetRecords) => Promise<any>;
+  getRecords: (apiProps: any) => Promise<any>;
   getParams?: any;
   dataKey?: string;
   //module

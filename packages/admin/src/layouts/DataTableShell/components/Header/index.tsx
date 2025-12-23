@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import {
   Anchor,
   Breadcrumbs,
@@ -16,16 +17,34 @@ import {
   PlusIcon,
 } from "@phosphor-icons/react";
 
-import { DataTableWrapper } from "@vf/core";
+import { DataTableWrapper } from "@settle/core";
 import { PropDataTableHeader } from "../../DataTableShell.type";
+import { useModalForm } from "../../context/ModalFormContext";
 
 export function DataTableShellHeader({
   bread,
   moduleInfo,
+  newButtonHref,
+  sustained = false,
+  onNewClick,
 }: PropDataTableHeader) {
   // * CONTEXT
 
+  const pathname = usePathname();
   const { refetch } = DataTableWrapper.useDataTableContext();
+  const finalHref = newButtonHref || `${pathname}/new`;
+
+  let modalContext: ReturnType<typeof useModalForm> | undefined;
+  try {
+    modalContext = useModalForm();
+  } catch (e) {
+    // Modal context not available
+    modalContext = undefined;
+  }
+
+  const handleNewClick = sustained
+    ? (onNewClick || modalContext?.openModal)
+    : undefined;
 
   return (
     <Stack p="lg" gap="sm">
@@ -81,9 +100,24 @@ export function DataTableShellHeader({
           </Button>
 
           <ButtonGroup>
-            <Button size="xs" leftSection={<PlusIcon />}>
-              New Module
-            </Button>
+            {sustained && handleNewClick ? (
+              <Button
+                onClick={handleNewClick}
+                size="xs"
+                leftSection={<PlusIcon />}
+              >
+                New {moduleInfo.label}
+              </Button>
+            ) : (
+              <Button
+                component="a"
+                href={finalHref}
+                size="xs"
+                leftSection={<PlusIcon />}
+              >
+                New {moduleInfo.label}
+              </Button>
+            )}
 
             <Menu>
               <Menu.Target>

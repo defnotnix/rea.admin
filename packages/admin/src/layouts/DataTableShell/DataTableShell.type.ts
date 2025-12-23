@@ -1,5 +1,3 @@
-import { PropTabsTab } from "@/src/components";
-
 // ─────────────────────────────────────────────
 // Shared bits
 // ─────────────────────────────────────────────
@@ -36,6 +34,9 @@ type PropServerSearch = {
 export type PropDataTableHeader = {
   bread: PropDataTableBread[];
   moduleInfo: any;
+  newButtonHref?: string;
+  sustained?: boolean;
+  onNewClick?: () => void;
 };
 
 // ─────────────────────────────────────────────
@@ -71,11 +72,13 @@ export type PropDataTableShellDataTable = PropRowStyle &
 export type PropDataTableShell = PropSustained &
   PropDataTableHeader &
   PropDataTableShellDataTable & {
-    tabs?: PropTabsTab[];
+    tabs?: any[];
     hideFilters?: boolean;
     filterList: any[];
     tableActions?: any[];
     sortStatus?: any;
+    newButtonHref?: string;
+    onNewClick?: () => void;
   };
 
 export type PropDataTableShellActions = PropIdAccessor & PropSustained;

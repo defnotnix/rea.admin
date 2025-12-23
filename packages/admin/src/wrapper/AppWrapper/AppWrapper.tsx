@@ -33,7 +33,7 @@ export function AppWrapper({
       <head>
         <ColorSchemeScript
           nonce="8IBTHwOdqNKAWeKl7plt8g=="
-          defaultColorScheme={defaultColorScheme}
+          defaultColorScheme={"light"}
         />
         <title>{title}</title>
         {extraHeadTags}
@@ -43,7 +43,7 @@ export function AppWrapper({
           [classNames.body]: classNames.body,
         })}
       >
-        <MantineProvider theme={theme} defaultColorScheme={defaultColorScheme}>
+        <MantineProvider theme={theme} forceColorScheme={"light"}>
           <ModalsProvider>
             <Notifications />
             {children}

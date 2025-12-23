@@ -1,7 +1,16 @@
 "use client";
 
 //mantine
-import { AppShell, Paper } from "@mantine/core";
+import {
+  ActionIcon,
+  AppShell,
+  Breadcrumbs,
+  Card,
+  Divider,
+  Group,
+  Paper,
+  Text,
+} from "@mantine/core";
 //hooks
 import { useDisclosure } from "@mantine/hooks";
 import { AdminShellNavbar } from "./component/Navbar";
@@ -10,6 +19,7 @@ import { PropAdminNavLayout } from "./AdminShell.type";
 
 import "mantine-datatable/styles.layer.css";
 import { AdminShellHeader } from "./component/Header";
+import { CaretLeftIcon } from "@phosphor-icons/react";
 
 export function AdminShell({
   children,
@@ -27,46 +37,21 @@ export function AdminShell({
     <>
       <AppShell
         navbar={{
-          width: 260,
+          width: 300,
           breakpoint: "sm",
           // collapsed: { mobile: !opened },
         }}
-        header={{ height: 40 }}
+        // header={{ height: 40 }}
       >
-        <AppShell.Header
-          style={{
-            background: "none",
-            border: "none",
-          }}
-        >
-          <AdminShellHeader />
-        </AppShell.Header>
-
         <AppShell.Navbar
           style={{
             background: "none",
-            border: "none",
           }}
         >
           <AdminShellNavbar navItems={navItems} navModules={navModules} />
         </AppShell.Navbar>
 
-        <AppShell.Main>
-          <Paper
-            withBorder
-            radius="md"
-            my="sm"
-            mr="sm"
-            h={{
-              lg: "calc(100vh - 54px)",
-            }}
-            style={{
-              overflowY: "scroll",
-            }}
-          >
-            {children}
-          </Paper>
-        </AppShell.Main>
+        <AppShell.Main bg="gray.0">{children}</AppShell.Main>
       </AppShell>
     </>
   );

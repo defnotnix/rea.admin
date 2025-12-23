@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { sortBy } from "lodash";
 import { DataTable, DataTableSortStatus } from "mantine-datatable";
 
-import { DataTableWrapper } from "@vf/core";
+import { DataTableWrapper } from "@settle/core";
 import { PropDataTableShellDataTable } from "../../DataTableShell.type";
 import { DataTableEmptyState } from "../EmptyState";
 import { useContext } from "../../DataTableShell.context";

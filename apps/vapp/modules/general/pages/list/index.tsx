@@ -19,7 +19,7 @@ import {
 
 import Module from "module";
 //vf
-import { DataTableWrapper, moduleApiCall } from "@vf/core";
+import { DataTableWrapper, moduleApiCall } from "@settle/core";
 
 //icons
 

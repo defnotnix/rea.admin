@@ -1,26 +1,33 @@
 import type { ComponentType, ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import {
+  ActionIcon,
   Avatar,
+  Card,
   Divider,
   Group,
   Kbd,
   Menu,
   NavLink,
-  Paper,
+  ScrollArea,
   Stack,
   Text,
   TextInput,
+  Highlight,
 } from "@mantine/core";
 import {
+  AvocadoIcon,
   CaretUpDownIcon,
+  LayoutIcon,
   LineVerticalIcon,
   MagnifyingGlassIcon,
-  PlanetIcon,
+  PlusIcon,
 } from "@phosphor-icons/react";
 import { useHover } from "@mantine/hooks";
 
 import { PropAdminNavItems, PropAdminNavSideNav } from "../../AdminShell.type";
+import { UserInfoPopover } from "./components/UserInfoPopover";
 
 // styles
 import classes from "./Navbar.module.css";
@@ -37,6 +44,8 @@ type AdminNavbarItemProps = {
   isChild?: boolean;
   pathname: string;
   renderNavItems: (items: PropAdminNavItems[], isChild?: boolean) => ReactNode;
+  searchQuery?: string;
+  shouldShow?: boolean;
 };
 
 function AdminNavbarItem({
@@ -44,15 +53,25 @@ function AdminNavbarItem({
   isChild = false,
   pathname,
   renderNavItems,
+  searchQuery = "",
+  shouldShow = true,
 }: AdminNavbarItemProps) {
+  const Router = useRouter();
   const { hovered, ref } = useHover<any>();
 
   const active = item.value ? pathname === item.value : false;
   const isParentActive =
     item.value && !isChild ? pathname.includes(item.value) : active;
 
+  // Check if item matches search query
+  const matchesSearch =
+    !searchQuery ||
+    item.label.toLowerCase().includes(searchQuery.toLowerCase());
+
   // Section label (no link, no value)
   if (!item.value) {
+    if (!matchesSearch && !shouldShow) return null;
+
     return (
       <div
         style={{
@@ -66,8 +85,7 @@ function AdminNavbarItem({
           pl={isChild ? "36px" : "xs"}
           my="xs"
           opacity={0.3}
-          fw={400}
-          tt="uppercase"
+          fw={500}
           size="xs"
         >
           {item.label || ""}
@@ -78,11 +96,49 @@ function AdminNavbarItem({
 
   const hasChildren = !!item.children && item.children.length > 0;
 
+  // Check if any children match the search
+  const hasMatchingChildren =
+    hasChildren &&
+    item.children!.some((child) => {
+      const childMatches = child.label
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      if (childMatches) return true;
+      if (child.children) {
+        return child.children.some((grandchild) =>
+          grandchild.label.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      return false;
+    });
+
+  // Show item if: no search query, item matches, any children match, or it's active
+  const shouldDisplay =
+    !searchQuery || matchesSearch || hasMatchingChildren || isParentActive;
+
+  if (!shouldDisplay) return null;
+
   return (
     <NavLink
       ref={ref}
       active={isChild ? active : isParentActive}
-      label={item.label || ""}
+      onClick={() => {
+        Router.push(item.value || "");
+      }}
+      label={
+        searchQuery && matchesSearch ? (
+          <Highlight
+            highlight={searchQuery}
+            size="inherit"
+            fw={600}
+            component="span"
+          >
+            {item.label || ""}
+          </Highlight>
+        ) : (
+          item.label || ""
+        )
+      }
       leftSection={
         isChild ? (
           <LineVerticalIcon
@@ -93,7 +149,17 @@ function AdminNavbarItem({
             size={14}
           />
         ) : (
-          item.icon && <item.icon weight="duotone" size={14} />
+          item.icon && (
+            <item.icon
+              color={
+                active
+                  ? `var(--mantine-color-brand-6)`
+                  : "var(--mantine-color-gray-6)"
+              }
+              weight="fill"
+              size={14}
+            />
+          )
         )
       }
       classNames={classesNavLink}
@@ -127,6 +193,7 @@ export function AdminShellNavbar({
   navModules: _navModules, // kept for type compatibility if needed
 }: AdminShellNavbarProps) {
   const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const renderNavItems = (
     items: PropAdminNavItems[],
@@ -139,29 +206,91 @@ export function AdminShellNavbar({
         isChild={isChild}
         pathname={pathname}
         renderNavItems={renderNavItems}
+        searchQuery={searchQuery}
       />
     ));
 
   return (
-    <Stack gap={"xs"} py="sm">
-      <TextInput
-        mx="sm"
-        size="sm"
-        placeholder="Navigation Search"
-        radius="md"
-        leftSection={<MagnifyingGlassIcon />}
-        rightSectionWidth={40}
-        rightSection={<Kbd size="xs">⌘+K</Kbd>}
-        styles={{
-          input: {
-            background: "none",
-            fontSize: "var(--mantine-font-size-xs)",
-          },
-        }}
-      />
+    <Stack
+      gap={0}
+      style={{ height: "100%", display: "flex", flexDirection: "column" }}
+    >
+      {/* Top Section */}
+      <Stack gap={8} py="xs" style={{ flexShrink: 0 }}>
+        <Group justify="space-between" px="md">
+          <Group gap="xs" py="sm">
+            <Text fw={900} size="md">
+              St.
+            </Text>
+            <Text fw={600} size="md">
+              Settle.Inc Admin
+            </Text>
+          </Group>
 
-      <Stack px="sm" gap={0}>
-        {renderNavItems(navItems)}
+          <LayoutIcon weight="duotone" />
+        </Group>
+
+        <Card radius="md" mx="sm" p="xs" withBorder>
+          <Group wrap="nowrap" justify="space-between">
+            <Group gap={"xs"}>
+              <Avatar size="xs" variant="filled" color="dark.9">
+                <AvocadoIcon weight="fill" />
+              </Avatar>
+              <div>
+                <Text fw={600} size="xs">
+                  General Admin
+                </Text>
+              </div>
+            </Group>
+            <ActionIcon size="xs" variant="subtle">
+              <CaretUpDownIcon />
+            </ActionIcon>
+          </Group>
+        </Card>
+
+        <TextInput
+          mx="sm"
+          size="sm"
+          placeholder="Navigation Search"
+          radius="md"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.currentTarget.value)}
+          leftSection={<MagnifyingGlassIcon />}
+          rightSectionWidth={48}
+          rightSection={<Kbd size="xs">⌘+K</Kbd>}
+          styles={{
+            input: {
+              fontSize: "var(--mantine-font-size-xs)",
+            },
+          }}
+        />
+      </Stack>
+
+      {/* Middle Section with Scrollbar */}
+      <ScrollArea style={{ flex: 1, minHeight: 0 }}>
+        <Stack px="sm" gap={0} pb="md">
+          {renderNavItems(navItems)}
+        </Stack>
+      </ScrollArea>
+
+      {/* Bottom Section */}
+      <Stack gap={0} style={{ flexShrink: 0 }} pb="sm">
+        <Group grow gap={4} px="sm" py="xs">
+          <ActionIcon>
+            <PlusIcon />
+          </ActionIcon>
+          <ActionIcon>
+            <PlusIcon />
+          </ActionIcon>
+          <ActionIcon>
+            <PlusIcon />
+          </ActionIcon>
+          <ActionIcon>
+            <PlusIcon />
+          </ActionIcon>
+        </Group>
+
+        <UserInfoPopover />
       </Stack>
     </Stack>
   );

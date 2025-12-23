@@ -4,8 +4,8 @@
 
 .btn {
   font-weight: 600;
-  font-size: var(--mantine-font-size-xs);
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  font-size: var(--mantine-font-size-xs) !important;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm) !important;
   margin-bottom: -1px;
   filter: saturate(0);
   opacity: 0.6;
