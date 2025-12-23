@@ -1,0 +1,7 @@
+.header {
+  background-color: white;
+}
+
+[data-mantine-color-scheme="dark"] .header {
+  background-color: var(--mantine-color-dark-9);
+}

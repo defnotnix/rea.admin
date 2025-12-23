@@ -1,0 +1,7 @@
+.chatHeader {
+  background-color: white;
+}
+
+[data-mantine-color-scheme="dark"] .chatHeader {
+  background-color: var(--mantine-color-dark-9);
+}
