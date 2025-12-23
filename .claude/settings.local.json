@@ -30,7 +30,11 @@
       "Bash(mkdir:*)",
       "Bash(README)",
       "Bash(index \")",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(npm run build:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm build:*)"
     ]
   }
 }
