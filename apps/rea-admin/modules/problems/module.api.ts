@@ -38,3 +38,8 @@ export const solveProblem = async (id: string, solutionData: any) => {
   const res = await axios.put(`${API_BASE}/problems/${id}/solve`, solutionData);
   return res?.data;
 };
+
+export const deleteProblem = async (id: string) => {
+  const res = await axios.delete(`${API_BASE}/problems/${id}`);
+  return res?.data;
+};

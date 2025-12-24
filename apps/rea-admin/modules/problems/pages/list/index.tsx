@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { DataTableShell } from "@settle/admin";
 import { moduleInfo } from "../../module.config";
 import {
@@ -14,6 +15,15 @@ import { getProblems } from "../../module.api";
 import { columns } from "./list.columns";
 
 export function _List() {
+  const router = useRouter();
+
+  const handleReview = (selectedRecords: any[]) => {
+    if (selectedRecords.length > 0) {
+      const id = selectedRecords[0].id;
+      router.push(`/admin/problems/${id}`);
+    }
+  };
+
   return (
     <>
       <DataTableWrapper
@@ -22,6 +32,7 @@ export function _List() {
         dataKey="data"
       >
         <DataTableShell
+          onReview={handleReview}
           bread={moduleInfo.bread}
           moduleInfo={moduleInfo}
           columns={columns}
