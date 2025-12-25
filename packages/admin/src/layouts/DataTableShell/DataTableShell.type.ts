@@ -2,11 +2,6 @@
 // Shared bits
 // ─────────────────────────────────────────────
 
-export type PropDataTableBread = {
-  label: string;
-  link?: string;
-};
-
 type PropSustained = {
   sustained?: boolean;
 };
@@ -32,7 +27,6 @@ type PropServerSearch = {
 // ─────────────────────────────────────────────
 
 export type PropDataTableHeader = {
-  bread: PropDataTableBread[];
   moduleInfo: any;
   newButtonHref?: string;
   sustained?: boolean;

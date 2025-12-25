@@ -52,7 +52,7 @@ export function DataTableShellToolbar({
 
   return (
     <>
-      <Group gap="xs" justify="space-between" px="lg" py="xs">
+      <Group gap="xs" justify="space-between" px="md" py="xs">
         <Group gap={4}>
           {/* Search */}
           <TextInput

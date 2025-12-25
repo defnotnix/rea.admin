@@ -1,11 +1,12 @@
 .root {
   border-bottom: 1px solid var(--mantine-color-gray-3);
+  border-top: 1px solid var(--mantine-color-gray-3);
 }
 
 .btn {
   font-weight: 600;
   font-size: var(--mantine-font-size-xs) !important;
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm) !important;
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md) !important;
   margin-bottom: -1px;
   filter: saturate(0);
   opacity: 0.6;

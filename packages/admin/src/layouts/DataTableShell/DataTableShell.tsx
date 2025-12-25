@@ -26,7 +26,6 @@ export function DataTableShell({
   pageSizes = [10, 20, 50, 100],
   forceFilter,
   disableActions = false,
-  bread,
   hideFilters,
   filterList = [],
   newButtonHref,
@@ -79,10 +78,10 @@ export function DataTableShell({
   return (
     <DataTableShellContext.Provider value={contextValue}>
       <Stack gap={0}>
-        <DataTableShellHeader bread={bread} moduleInfo={moduleInfo} newButtonHref={newButtonHref} sustained={sustained} onNewClick={onNewClick} />
+        <DataTableShellHeader moduleInfo={moduleInfo} newButtonHref={newButtonHref} sustained={sustained} onNewClick={onNewClick} />
 
         {/* Tabs */}
-        <Tabs px="xs" active={activeTab} onTabChange={setActiveTab} tabs={tabs} />
+        <Tabs px={0} active={activeTab} onTabChange={setActiveTab} tabs={tabs} />
 
         {/* Toolbar */}
         <DataTableShellToolbar

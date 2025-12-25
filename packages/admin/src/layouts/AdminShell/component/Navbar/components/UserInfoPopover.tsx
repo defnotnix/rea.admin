@@ -1,16 +1,24 @@
-import { useState } from "react";
-import { ActionIcon, Avatar, Group, Menu, Paper, Text } from "@mantine/core";
 import {
-  CaretUpDownIcon,
+  ActionIcon,
+  Avatar,
+  Group,
+  Indicator,
+  Menu,
+  Paper,
+  Text,
+} from "@mantine/core";
+import {
+  BellSlashIcon,
+  CaretRightIcon,
+  CircleIcon,
   GearIcon,
   MoonIcon,
   PlanetIcon,
   QuestionIcon,
   SignOutIcon,
   SunIcon,
-  BellSlashIcon,
-  CircleIcon,
 } from "@phosphor-icons/react";
+import { useState } from "react";
 
 import classes from "../Navbar.module.css";
 
@@ -21,17 +29,27 @@ export function UserInfoPopover() {
     <Menu shadow="md" position="right" withArrow>
       <Menu.Target>
         <Paper
-          px="xs"
-          py={4}
-          mx="sm"
-          radius="md"
+          bg="white"
+          px="md"
+          py={"xs"}
+          radius={0}
           className={classes.userInfoButton}
-          style={{ cursor: "pointer" }}
-          withBorder
+          style={{
+            cursor: "pointer",
+            borderTop: "1px solid var(--mantine-color-gray-3)",
+          }}
         >
           <Group wrap="nowrap" justify="space-between">
             <Group gap="sm" wrap="nowrap">
-              <Avatar name="Kevin Dukkon" color="initials" size="md" />
+              <Indicator position="bottom-end" withBorder>
+                <Avatar
+                  radius="sm"
+                  variant="filled"
+                  name="Kevin Dukkon"
+                  color="orange"
+                  size="sm"
+                />
+              </Indicator>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <Text fw={600} size="xs" truncate>
                   Kevin Dukkon
@@ -41,9 +59,7 @@ export function UserInfoPopover() {
                 </Text>
               </div>
             </Group>
-            <ActionIcon variant="subtle" size="sm">
-              <CaretUpDownIcon size={16} />
-            </ActionIcon>
+            <CaretRightIcon weight="bold" size={14} />
           </Group>
         </Paper>
       </Menu.Target>

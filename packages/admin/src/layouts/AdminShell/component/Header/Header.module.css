@@ -1,0 +1,19 @@
+.header {
+  border-bottom: 1px solid var(--mantine-color-gray-2);
+  background-color: white;
+  min-height: 50px;
+}
+
+.breadcrumbLink {
+  transition: color 0.2s ease;
+}
+
+.breadcrumbLink:hover {
+  color: var(--mantine-color-brand-6) !important;
+  text-decoration: underline;
+}
+
+.moduleSelector {
+  white-space: nowrap;
+  flex-shrink: 0;
+}

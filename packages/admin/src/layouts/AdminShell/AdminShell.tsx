@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 //hooks
 import { useDisclosure } from "@mantine/hooks";
-import { AdminShellNavbar } from "./component/Navbar";
+import { AdminShellNavbarWrapper } from "./component/Navbar/Navbar.dynamic";
 //props
 import { PropAdminNavLayout } from "./AdminShell.type";
 
@@ -41,14 +41,17 @@ export function AdminShell({
           breakpoint: "sm",
           // collapsed: { mobile: !opened },
         }}
-        // header={{ height: 40 }}
+        header={{ height: 50 }}
       >
-        <AppShell.Navbar
-          style={{
-            background: "none",
-          }}
-        >
-          <AdminShellNavbar navItems={navItems} navModules={navModules} />
+        <AppShell.Header bg="gray.1">
+          <AdminShellHeader navModules={navModules} />
+        </AppShell.Header>
+
+        <AppShell.Navbar bg="gray.1">
+          <AdminShellNavbarWrapper
+            navItems={navItems}
+            navModules={navModules}
+          />
         </AppShell.Navbar>
 
         <AppShell.Main bg="gray.0">{children}</AppShell.Main>

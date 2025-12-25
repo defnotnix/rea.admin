@@ -1,30 +1,26 @@
-import type { ComponentType, ReactNode } from "react";
-import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+"use client";
+
 import {
   ActionIcon,
-  Avatar,
-  Card,
-  Divider,
-  Group,
+  Badge,
+  Highlight,
   Kbd,
-  Menu,
   NavLink,
+  Paper,
   ScrollArea,
   Stack,
   Text,
   TextInput,
-  Highlight,
 } from "@mantine/core";
+import { useHover } from "@mantine/hooks";
 import {
-  AvocadoIcon,
-  CaretUpDownIcon,
-  LayoutIcon,
   LineVerticalIcon,
   MagnifyingGlassIcon,
-  PlusIcon,
+  XIcon,
 } from "@phosphor-icons/react";
-import { useHover } from "@mantine/hooks";
+import { usePathname, useRouter } from "next/navigation";
+import type { ComponentType, ReactNode } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 import { PropAdminNavItems, PropAdminNavSideNav } from "../../AdminShell.type";
 import { UserInfoPopover } from "./components/UserInfoPopover";
@@ -48,7 +44,7 @@ type AdminNavbarItemProps = {
   shouldShow?: boolean;
 };
 
-function AdminNavbarItem({
+const AdminNavbarItem = memo(function AdminNavbarItem({
   item,
   isChild = false,
   pathname,
@@ -57,7 +53,7 @@ function AdminNavbarItem({
   shouldShow = true,
 }: AdminNavbarItemProps) {
   const Router = useRouter();
-  const { hovered, ref } = useHover<any>();
+  const { hovered, ref } = useHover<HTMLDivElement>();
 
   const active = item.value ? pathname === item.value : false;
   const isParentActive =
@@ -65,8 +61,7 @@ function AdminNavbarItem({
 
   // Check if item matches search query
   const matchesSearch =
-    !searchQuery ||
-    item.label.toLowerCase().includes(searchQuery.toLowerCase());
+    !searchQuery || item.label.toLowerCase().includes(searchQuery);
 
   // Section label (no link, no value)
   if (!item.value) {
@@ -100,13 +95,11 @@ function AdminNavbarItem({
   const hasMatchingChildren =
     hasChildren &&
     item.children!.some((child) => {
-      const childMatches = child.label
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
+      const childMatches = child.label.toLowerCase().includes(searchQuery);
       if (childMatches) return true;
       if (child.children) {
         return child.children.some((grandchild) =>
-          grandchild.label.toLowerCase().includes(searchQuery.toLowerCase())
+          grandchild.label.toLowerCase().includes(searchQuery)
         );
       }
       return false;
@@ -120,16 +113,17 @@ function AdminNavbarItem({
 
   return (
     <NavLink
-      ref={ref}
       active={isChild ? active : isParentActive}
       onClick={() => {
-        Router.push(item.value || "");
+        if (!item.children) {
+          Router.push(item.value || "");
+        }
       }}
       label={
         searchQuery && matchesSearch ? (
           <Highlight
             highlight={searchQuery}
-            size="inherit"
+            size="xs"
             fw={600}
             component="span"
           >
@@ -186,7 +180,7 @@ function AdminNavbarItem({
       )}
     </NavLink>
   );
-}
+});
 
 export function AdminShellNavbar({
   navItems = [],
@@ -194,102 +188,81 @@ export function AdminShellNavbar({
 }: AdminShellNavbarProps) {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const lowerSearchQuery = searchQuery.toLowerCase();
 
-  const renderNavItems = (
-    items: PropAdminNavItems[],
-    isChild = false
-  ): ReactNode =>
-    items.map((item, index) => (
-      <AdminNavbarItem
-        key={index}
-        item={item}
-        isChild={isChild}
-        pathname={pathname}
-        renderNavItems={renderNavItems}
-        searchQuery={searchQuery}
-      />
-    ));
+  const renderNavItems = useCallback(
+    (items: PropAdminNavItems[], isChild = false): ReactNode =>
+      items.map((item, index) => (
+        <AdminNavbarItem
+          key={`${item.value || item.label}-${index}`}
+          item={item}
+          isChild={isChild}
+          pathname={pathname}
+          renderNavItems={renderNavItems}
+          searchQuery={lowerSearchQuery}
+        />
+      )),
+    [pathname, lowerSearchQuery]
+  );
+
+  // Handle ⌘+K (or Ctrl+K) keyboard shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
-    <Stack
-      gap={0}
-      style={{ height: "100%", display: "flex", flexDirection: "column" }}
-    >
+    <Stack gap={0} className={classes.navContainer}>
       {/* Top Section */}
-      <Stack gap={8} py="xs" style={{ flexShrink: 0 }}>
-        <Group justify="space-between" px="md">
-          <Group gap="xs" py="sm">
-            <Text fw={900} size="md">
-              St.
-            </Text>
-            <Text fw={600} size="md">
-              Settle.Inc Admin
-            </Text>
-          </Group>
-
-          <LayoutIcon weight="duotone" />
-        </Group>
-
-        <Card radius="md" mx="sm" p="xs" withBorder>
-          <Group wrap="nowrap" justify="space-between">
-            <Group gap={"xs"}>
-              <Avatar size="xs" variant="filled" color="dark.9">
-                <AvocadoIcon weight="fill" />
-              </Avatar>
-              <div>
-                <Text fw={600} size="xs">
-                  General Admin
-                </Text>
-              </div>
-            </Group>
-            <ActionIcon size="xs" variant="subtle">
-              <CaretUpDownIcon />
-            </ActionIcon>
-          </Group>
-        </Card>
-
+      <Paper bg="gray.3" radius={0} py={4}>
         <TextInput
-          mx="sm"
-          size="sm"
+          ref={searchInputRef}
+          variant="unstyled"
+          radius={0}
+          size="xs"
           placeholder="Navigation Search"
-          radius="md"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.currentTarget.value)}
           leftSection={<MagnifyingGlassIcon />}
-          rightSectionWidth={48}
-          rightSection={<Kbd size="xs">⌘+K</Kbd>}
-          styles={{
-            input: {
-              fontSize: "var(--mantine-font-size-xs)",
-            },
-          }}
+          rightSectionWidth={55}
+          rightSection={
+            searchQuery ? (
+              <ActionIcon
+                size="sm"
+                variant="subtle"
+                onClick={() => {
+                  setSearchQuery("");
+                  searchInputRef.current?.focus();
+                }}
+              >
+                <XIcon />
+              </ActionIcon>
+            ) : (
+              <></>
+            )
+          }
+          px="sm"
         />
-      </Stack>
+      </Paper>
 
       {/* Middle Section with Scrollbar */}
-      <ScrollArea style={{ flex: 1, minHeight: 0 }}>
+      <ScrollArea py="sm" className={classes.navScrollArea}>
         <Stack px="sm" gap={0} pb="md">
           {renderNavItems(navItems)}
         </Stack>
       </ScrollArea>
 
       {/* Bottom Section */}
-      <Stack gap={0} style={{ flexShrink: 0 }} pb="sm">
-        <Group grow gap={4} px="sm" py="xs">
-          <ActionIcon>
-            <PlusIcon />
-          </ActionIcon>
-          <ActionIcon>
-            <PlusIcon />
-          </ActionIcon>
-          <ActionIcon>
-            <PlusIcon />
-          </ActionIcon>
-          <ActionIcon>
-            <PlusIcon />
-          </ActionIcon>
-        </Group>
-
+      <Stack gap={0} className={classes.navBottomSection}>
+    
         <UserInfoPopover />
       </Stack>
     </Stack>

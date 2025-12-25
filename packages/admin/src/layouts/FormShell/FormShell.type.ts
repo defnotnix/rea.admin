@@ -24,4 +24,9 @@ export type PropFormShell = PropFormShellHeader & {
   disabledSteps?: number[];
   showStepper?: boolean;
   formName?: string;
+  // Footer/Navigation props
+  onStepBack?: () => void;
+  onStepNext?: () => void;
+  onCancel?: () => void;
+  isLoading?: boolean;
 };

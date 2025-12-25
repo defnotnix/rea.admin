@@ -17,3 +17,23 @@
     left: 15px;
     top: 6px;
 }
+
+.navContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navTopSection {
+  flex-shrink: 0;
+  padding-top: 0;
+}
+
+.navBottomSection {
+  flex-shrink: 0;
+}
+
+.navScrollArea {
+  flex: 1;
+  min-height: 0;
+}

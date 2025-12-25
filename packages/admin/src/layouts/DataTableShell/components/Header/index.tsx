@@ -2,8 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import {
-  Anchor,
-  Breadcrumbs,
   Button,
   ButtonGroup,
   Group,
@@ -20,9 +18,9 @@ import {
 import { DataTableWrapper } from "@settle/core";
 import { PropDataTableHeader } from "../../DataTableShell.type";
 import { useModalForm } from "../../context/ModalFormContext";
+import { useDataTableModalShellContext } from "../../DataTableModalShell/DataTableModalShell.context";
 
 export function DataTableShellHeader({
-  bread,
   moduleInfo,
   newButtonHref,
   sustained = false,
@@ -42,28 +40,20 @@ export function DataTableShellHeader({
     modalContext = undefined;
   }
 
+  let dataTableModalContext: ReturnType<typeof useDataTableModalShellContext> | undefined;
+  try {
+    dataTableModalContext = useDataTableModalShellContext();
+  } catch (e) {
+    // DataTableModalShell context not available
+    dataTableModalContext = undefined;
+  }
+
   const handleNewClick = sustained
-    ? (onNewClick || modalContext?.openModal)
+    ? onNewClick || dataTableModalContext?.openCreateModal || modalContext?.openModal
     : undefined;
 
   return (
-    <Stack p="lg" gap="sm">
-      {bread && (
-        <Breadcrumbs opacity={0.5}>
-          {bread.map((breaditem: any, index: number) =>
-            breaditem.link ? (
-              <Anchor c="dark" size="10px" key={index} href={breaditem.link}>
-                {breaditem.label}
-              </Anchor>
-            ) : (
-              <Text c="dark" key={index} size="10px">
-                {breaditem.label}
-              </Text>
-            )
-          )}
-        </Breadcrumbs>
-      )}
-
+    <Stack p="md" gap="sm">
       <Group justify="space-between">
         <div>
           <Text size="xl">{moduleInfo.label}</Text>

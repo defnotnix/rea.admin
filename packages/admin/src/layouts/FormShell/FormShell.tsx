@@ -4,6 +4,7 @@ import { Box, Container, Stack } from "@mantine/core";
 import { PropFormShell } from "./FormShell.type";
 import { FormShellHeader } from "./components/Header";
 import { FormShellStepper } from "./components/Stepper";
+import { FormShellFooter } from "./components/Footer";
 import { Context as FormShellContext } from "./FormShell.context";
 import { FormWrapper } from "@settle/core";
 
@@ -15,6 +16,10 @@ function FormShellContent({
   steps = [],
   disabledSteps = [],
   showStepper = true,
+  onStepBack,
+  onStepNext,
+  onCancel,
+  isLoading = false,
 }: PropFormShell) {
   const contextValue = {
     selectedRecords: [],
@@ -41,10 +46,20 @@ function FormShellContent({
 
         {/* Form Content */}
         <Box component="div" flex={1}>
-          <Container size="xl" py="lg">
+          <Container size="sm" py="lg">
             {children}
           </Container>
         </Box>
+
+        {/* Footer with Submit/Next/Back buttons */}
+        <FormShellFooter
+          withStepper={showStepper && steps.length > 0}
+          steps={steps}
+          onStepBack={onStepBack}
+          onStepNext={onStepNext}
+          onCancel={onCancel}
+          isLoading={isLoading}
+        />
       </Stack>
     </FormShellContext.Provider>
   );
@@ -58,6 +73,10 @@ export function FormShell({
   steps = [],
   disabledSteps = [],
   showStepper = true,
+  onStepBack,
+  onStepNext,
+  onCancel,
+  isLoading,
 }: PropFormShell) {
   return (
     <FormShellContent
@@ -68,6 +87,10 @@ export function FormShell({
       steps={steps}
       disabledSteps={disabledSteps}
       showStepper={showStepper}
+      onStepBack={onStepBack}
+      onStepNext={onStepNext}
+      onCancel={onCancel}
+      isLoading={isLoading}
     />
   );
 }

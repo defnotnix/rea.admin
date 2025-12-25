@@ -2,24 +2,119 @@
 
 import {
   ActionIcon,
+  Anchor,
   Avatar,
-  Button,
+  Breadcrumbs,
+  Card,
   Group,
   Menu,
-  Paper,
   Text,
 } from "@mantine/core";
-import {
-  CaretUpDownIcon,
-  DotsNineIcon,
-  DotsSixIcon,
-  PlanetIcon,
-} from "@phosphor-icons/react";
+import { CaretUpDownIcon, AvocadoIcon } from "@phosphor-icons/react";
+import { usePathname, useRouter } from "next/navigation";
+import type { PropAdminNavModule } from "../../AdminShell.type";
+import classes from "./Header.module.css";
 
-export function AdminShellHeader() {
+interface AdminShellHeaderProps {
+  navModules?: PropAdminNavModule[];
+}
+
+// Helper function to format pathname segments to readable labels
+function formatSegmentLabel(segment: string): string {
+  return segment
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+export function AdminShellHeader({ navModules }: AdminShellHeaderProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Generate breadcrumb items from pathname
+  const segments = pathname.split("/").filter(Boolean);
+  const breadcrumbItems = segments.map((segment, index) => ({
+    label: formatSegmentLabel(segment),
+    href: "/" + segments.slice(0, index + 1).join("/"),
+    isLast: index === segments.length - 1,
+  }));
+
+  const breadcrumbs = breadcrumbItems.map((item) =>
+    item.isLast ? (
+      <Text fw={600} key={item.href} size="xs" c="gray.7">
+        {item.label}
+      </Text>
+    ) : (
+      <Anchor
+        key={item.href}
+        href={item.href}
+        onClick={(e) => {
+          e.preventDefault();
+          router.push(item.href);
+        }}
+        size="sm"
+        c="gray.6"
+        className={classes.breadcrumbLink}
+      >
+        {item.label}
+      </Anchor>
+    )
+  );
+
   return (
-    <>
-      <Group></Group>
-    </>
+    <div>
+      {/* Left Section: Logo */}
+      <Group gap={0}>
+        <Group
+          style={{
+            borderRight: "1px solid var(--mantine-color-gray-3)",
+          }}
+        >
+          <Group px="lg" h={50} gap="xs" w={299}>
+            <Text fw={900} size="sm" c="brand.6">
+              REA
+            </Text>
+            <Text fw={600} size="sm">
+              Admin Portal
+            </Text>
+          </Group>
+        </Group>
+
+        {/* Center Section: Breadcrumbs */}
+        <Group
+          h={50}
+          px="sm"
+          justify="space-between"
+          gap={0}
+          w="calc(100vw - 315px)"
+        >
+          <Breadcrumbs>{breadcrumbs}</Breadcrumbs>
+
+          {/* Right Section: Module Selector */}
+          <Card
+            radius="md"
+            p="xs"
+            withBorder
+            className={classes.moduleSelector}
+          >
+            <Group wrap="nowrap" justify="space-between" gap="xs">
+              <Group gap="xs">
+                <Avatar size="xs" variant="filled" color="dark.9">
+                  <AvocadoIcon weight="fill" />
+                </Avatar>
+                <div>
+                  <Text fw={600} size="xs">
+                    General Admin
+                  </Text>
+                </div>
+              </Group>
+              <ActionIcon size="xs" variant="subtle">
+                <CaretUpDownIcon />
+              </ActionIcon>
+            </Group>
+          </Card>
+        </Group>
+      </Group>
+    </div>
   );
 }

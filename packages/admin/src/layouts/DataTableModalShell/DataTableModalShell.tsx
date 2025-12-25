@@ -29,7 +29,6 @@ export function DataTableModalShell({
   pageSizes,
   forceFilter,
   disableActions = false,
-  bread,
   hideFilters,
   filterList = [],
 
@@ -208,7 +207,6 @@ export function DataTableModalShell({
         pageSizes={pageSizes}
         forceFilter={forceFilter}
         disableActions={true}
-        bread={bread}
         hideFilters={hideFilters}
         filterList={filterList}
       />
