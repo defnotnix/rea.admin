@@ -80,7 +80,10 @@ export const useAuthStore = create<AuthState>()(
               sessionStorage.setItem("kcrtoken", response.refresh);
             }
             set({
-              user: response.user,
+              user: {
+                ...response.user,
+                userId: response.user.id,
+              },
               accessToken: response.access,
               refreshToken: response.refresh,
               isAuthenticated: true,

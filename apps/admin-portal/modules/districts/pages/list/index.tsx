@@ -41,7 +41,6 @@ export function _List() {
         paginationResponseFn={handlePaginationResponse}
       >
         <DataTableShell
-          bread={moduleInfo.bread}
           moduleInfo={moduleInfo}
           columns={columns}
           sustained={true}
