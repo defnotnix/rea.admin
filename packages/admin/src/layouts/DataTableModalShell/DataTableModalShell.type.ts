@@ -20,7 +20,21 @@ export type PropDataTableModalCallbacks = {
   onCreateSuccess?: (res: any) => void;
   onEditSuccess?: (res: any) => void;
   onDeleteSuccess?: (id: string | number) => void;
+  /**
+   * Triggered when edit modal opens. Use this to fetch full record data from API.
+   * If not provided, uses the row data from the table (default approach).
+   *
+   * @param row - The row data from the table
+   * @returns - The full record data to populate the form (from API or transformed)
+   */
   onEditTrigger?: (row: any) => Promise<any>;
+  /**
+   * Triggered when review button is clicked.
+   * If not provided, defaults to navigating to /[id] page.
+   *
+   * @param row - The row data from the table
+   */
+  onReviewClick?: (row: any) => void;
 };
 
 export type PropDataTableModalTransform = {
@@ -42,8 +56,10 @@ export type PropDataTableModalShell = PropDataTableShell &
     modalFormConfig?: PropDataTableModalFormConfig;
     showCreateButton?: boolean;
     createButtonLabel?: string;
-    editFormComponent?: React.ReactNode;
-    createFormComponent?: React.ReactNode;
+    editFormComponent?: React.ReactNode | ((props: { isCreate: boolean }) => React.ReactNode);
+    createFormComponent?: React.ReactNode | ((props: { isCreate: boolean }) => React.ReactNode);
+    // Review page
+    hasReviewPage?: boolean;
     // Validator
     validator?: any;
   };

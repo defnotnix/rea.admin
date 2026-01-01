@@ -1,0 +1,222 @@
+interface Announcement {
+  id: string;
+  text: string;
+  author: string;
+  category: string;
+  timestamp: string;
+  image?: string;
+  likes: number;
+  dislikes: number;
+}
+
+const DUMMY_ANNOUNCEMENTS: Announcement[] = [
+  {
+    id: "1",
+    author: "@thecouncilofgenz",
+    category: "General Announcement",
+    text: "An inspiring event will take place at Tundikhel Ground on January 1st, 2026. Let us unite as one community and pause for a moment of silence in honor of the brave martyrs who sacrificed their lives for the movement.",
+    timestamp: "12 minutes ago",
+    image: "https://media.desenio.com/site_images/685c87728fdef2fa155dd41d_1789925067_17469-8.jpg?auto=compress%2Cformat&fit=max&w=3840",
+    likes: 2200,
+    dislikes: 45,
+  },
+  {
+    id: "2",
+    author: "@communityvoice",
+    category: "Community Update",
+    text: "We are pleased to announce the opening of three new community centers across the city. These centers will provide free services including healthcare, education, and skill development programs.",
+    timestamp: "1 hour ago",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
+    likes: 1850,
+    dislikes: 32,
+  },
+  {
+    id: "3",
+    author: "@youthinitiative",
+    category: "Youth Program",
+    text: "Calling all young talents! We're launching a mentorship program connecting students with industry experts. Register now to secure your spot in this exclusive opportunity.",
+    timestamp: "3 hours ago",
+    likes: 3400,
+    dislikes: 78,
+  },
+  {
+    id: "4",
+    author: "@environmentalcare",
+    category: "Environmental",
+    text: "Join us for the Spring Cleaning Drive 2026! We will be cleaning and beautifying public spaces throughout the city. Every contribution matters!",
+    timestamp: "5 hours ago",
+    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800",
+    likes: 2950,
+    dislikes: 56,
+  },
+  {
+    id: "5",
+    author: "@educationboard",
+    category: "Education",
+    text: "New scholarship program launched for deserving students! Up to 100 scholarships worth 50,000 NPR each will be awarded. Application deadline is January 15th, 2026.",
+    timestamp: "6 hours ago",
+    likes: 5600,
+    dislikes: 89,
+  },
+  {
+    id: "6",
+    author: "@healthdepartment",
+    category: "Health Advisory",
+    text: "Free health checkup camps will be conducted every Saturday at designated community centers. Bring your family for preventive health screening and wellness advice.",
+    timestamp: "8 hours ago",
+    image: "https://images.unsplash.com/photo-1631217314830-e67fc9a186fe?w=800",
+    likes: 1723,
+    dislikes: 23,
+  },
+  {
+    id: "7",
+    author: "@culturalheritage",
+    category: "Cultural Event",
+    text: "Mark your calendars! Our annual Cultural Festival will showcase traditional music, dance, and cuisine from all regions. Come celebrate our rich heritage together.",
+    timestamp: "10 hours ago",
+    likes: 4120,
+    dislikes: 102,
+  },
+  {
+    id: "8",
+    author: "@infrastructuredev",
+    category: "Development",
+    text: "Major road renovation project begins next month in the central district. We appreciate your patience and cooperation during this essential infrastructure upgrade.",
+    timestamp: "12 hours ago",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800",
+    likes: 892,
+    dislikes: 234,
+  },
+  {
+    id: "9",
+    author: "@businessforum",
+    category: "Business Opportunity",
+    text: "Attention entrepreneurs! The Small Business Grant Program is now open for applications. Get up to 200,000 NPR to start or expand your business.",
+    timestamp: "14 hours ago",
+    likes: 3456,
+    dislikes: 67,
+  },
+  {
+    id: "10",
+    author: "@artscultural",
+    category: "Arts & Culture",
+    text: "Applications are open for emerging artists and performers. Join our Artist Development Program and get mentorship from established professionals in your field.",
+    timestamp: "16 hours ago",
+    likes: 2134,
+    dislikes: 45,
+  },
+  {
+    id: "11",
+    author: "@sportsdevelopment",
+    category: "Sports",
+    text: "Youth sports tournament registration is now open! Compete in basketball, volleyball, and football. Winners receive scholarships and sports equipment.",
+    timestamp: "1 day ago",
+    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800",
+    likes: 3780,
+    dislikes: 91,
+  },
+  {
+    id: "12",
+    author: "@socialwelfare",
+    category: "Social Welfare",
+    text: "Emergency assistance available for affected families. If your household has been impacted by recent challenges, please contact your nearest welfare office for support.",
+    timestamp: "1 day ago",
+    likes: 1256,
+    dislikes: 18,
+  },
+  {
+    id: "13",
+    author: "@techinitiative",
+    category: "Technology",
+    text: "Digital literacy workshops starting next week! Learn basic computer skills, internet safety, and online resources. Classes available for all age groups.",
+    timestamp: "1 day ago",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800",
+    likes: 4567,
+    dislikes: 103,
+  },
+  {
+    id: "14",
+    author: "@environmentalsustainability",
+    category: "Sustainability",
+    text: "We are committed to becoming a plastic-free community. Starting January 2026, single-use plastics will be phased out from all government institutions.",
+    timestamp: "2 days ago",
+    likes: 3895,
+    dislikes: 156,
+  },
+  {
+    id: "15",
+    author: "@womenempowerment",
+    category: "Women's Program",
+    text: "Women Entrepreneur Bootcamp now accepting applications! Intensive 3-month program with training, mentorship, and funding opportunities for women-led startups.",
+    timestamp: "2 days ago",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
+    likes: 5234,
+    dislikes: 72,
+  },
+  {
+    id: "16",
+    author: "@childrenservices",
+    category: "Child Welfare",
+    text: "Free nutritional meals for school children throughout the year. This program ensures every child has access to healthy food for better learning outcomes.",
+    timestamp: "2 days ago",
+    likes: 2876,
+    dislikes: 34,
+  },
+  {
+    id: "17",
+    author: "@agricultureprogramme",
+    category: "Agriculture",
+    text: "Modern farming techniques workshop for farmers! Learn sustainable agriculture, organic farming, and improved crop yield methods. Free participation for all farmers.",
+    timestamp: "3 days ago",
+    image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800",
+    likes: 2145,
+    dislikes: 51,
+  },
+  {
+    id: "18",
+    author: "@elderlycare",
+    category: "Senior Citizens",
+    text: "New eldercare center inauguration this month! Comprehensive services including healthcare, recreational activities, and social engagement programs for seniors.",
+    timestamp: "3 days ago",
+    likes: 1890,
+    dislikes: 28,
+  },
+  {
+    id: "19",
+    author: "@disastermanagement",
+    category: "Safety Alert",
+    text: "Important: Please ensure your home is prepared for the upcoming monsoon season. Free disaster preparedness kits available at all district offices.",
+    timestamp: "3 days ago",
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800",
+    likes: 1567,
+    dislikes: 89,
+  },
+  {
+    id: "20",
+    author: "@volunteernetwork",
+    category: "Volunteering",
+    text: "Join our volunteer movement! We need passionate individuals for community service projects. Training and certification provided. Make a difference in your community!",
+    timestamp: "4 days ago",
+    likes: 2723,
+    dislikes: 43,
+  },
+  {
+    id: "21",
+    author: "@tourismdevelopment",
+    category: "Tourism",
+    text: "Promoting local tourism and heritage conservation. Visit newly developed cultural sites with guided tours. Special packages available for families and groups.",
+    timestamp: "4 days ago",
+    image: "https://images.unsplash.com/photo-1488747807830-63789f68bb65?w=800",
+    likes: 3421,
+    dislikes: 76,
+  },
+];
+
+export async function getRecords(): Promise<Announcement[]> {
+  // Simulate API delay
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(DUMMY_ANNOUNCEMENTS);
+    }, 300);
+  });
+}

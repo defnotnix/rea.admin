@@ -12,6 +12,7 @@ interface DataTableModalShellContextType {
   openEditModal: (record: any) => void;
   closeEditModal: () => void;
   setEditLoading: (loading: boolean) => void;
+  setActiveEditRecord: (record: any) => void;
 }
 
 export const Context = createContext<DataTableModalShellContextType | undefined>(undefined);

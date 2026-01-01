@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMantineColorScheme } from "@mantine/core";
 
 import { sortBy } from "lodash";
 import { DataTable, DataTableSortStatus } from "mantine-datatable";
@@ -22,8 +23,18 @@ export function DataTableShellDataTable({
 }: PropDataTableShellDataTable) {
   //* CONTEXT
 
-  const { data, isLoading: isFetching, refetch } = DataTableWrapper.useDataTableContext();
-  const { page, pageSize, pages: totalPages } = DataTableWrapper.useDataTableWrapperStore();
+  const { colorScheme } = useMantineColorScheme();
+  const {
+    data,
+    isLoading: isFetching,
+    refetch,
+  } = DataTableWrapper.useDataTableContext();
+  const {
+    page,
+    pageSize,
+    pages: totalPages,
+    totalItems,
+  } = DataTableWrapper.useDataTableWrapperStore();
   const { selectedRecords, setSelectedRecords } = useContext();
 
   // * STATE
@@ -44,13 +55,8 @@ export function DataTableShellDataTable({
   // Refetch data whenever page or pageSize changes (server-side pagination)
   useEffect(() => {
     if (!hasServerSearch) return;
-    const timer = setTimeout(() => {
-      refetch();
-    }, 100);
-    return () => clearTimeout(timer);
+    refetch();
   }, [page, pageSize, hasServerSearch, refetch]);
-
-  // Debounced search value → context search
 
   // ---------------------------------------------------------------------------
   // DERIVED DATA
@@ -96,8 +102,8 @@ export function DataTableShellDataTable({
   );
 
   const totalRecords = useMemo(
-    () => (hasServerSearch ? totalPages * pageSize : visibleRecords.length),
-    [hasServerSearch, totalPages, pageSize, visibleRecords.length]
+    () => (hasServerSearch ? totalItems : visibleRecords.length),
+    [hasServerSearch, totalItems, visibleRecords.length]
   );
 
   // * FUNCTIONS
@@ -132,6 +138,7 @@ export function DataTableShellDataTable({
   return (
     <>
       <DataTable
+        withTableBorder
         idAccessor={idAccessor}
         records={visibleRecords}
         columns={tableColumnConfig}
@@ -144,7 +151,10 @@ export function DataTableShellDataTable({
         highlightOnHover
         styles={{
           header: {
-            background: "var(--mantine-color-gray-1)",
+            background:
+              colorScheme === "dark"
+                ? "var(--mantine-color-dark-6)"
+                : "var(--mantine-color-gray-1)",
           },
         }}
         rowStyle={rowStyle}

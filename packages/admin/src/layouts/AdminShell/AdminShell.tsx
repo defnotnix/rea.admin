@@ -43,18 +43,18 @@ export function AdminShell({
         }}
         header={{ height: 50 }}
       >
-        <AppShell.Header bg="gray.1">
+        <AppShell.Header bg="none">
           <AdminShellHeader navModules={navModules} />
         </AppShell.Header>
 
-        <AppShell.Navbar bg="gray.1">
+        <AppShell.Navbar bg="none">
           <AdminShellNavbarWrapper
             navItems={navItems}
             navModules={navModules}
           />
         </AppShell.Navbar>
 
-        <AppShell.Main bg="gray.0">{children}</AppShell.Main>
+        <AppShell.Main bg="none">{children}</AppShell.Main>
       </AppShell>
     </>
   );

@@ -21,7 +21,7 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  apps/admin-test:
+  apps/admin-portal:
     dependencies:
       '@mantine/carousel':
         specifier: ^8.3.10
@@ -137,7 +137,7 @@ importers:
         version: 9.39.2(jiti@2.6.1)
       eslint-config-next:
         specifier: 16.1.0
-        version: 16.1.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+        version: 16.1.0(@typescript-eslint/parser@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -154,71 +154,68 @@ importers:
         specifier: ^5
         version: 5.9.3
 
-  apps/rea-admin:
+  apps/rea-web:
     dependencies:
       '@mantine/carousel':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(embla-carousel-react@8.6.0(react@19.2.3))(embla-carousel@8.6.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/charts':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(recharts@3.6.0(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react-is@19.2.3)(react@19.2.3)(redux@5.0.1))
       '@mantine/code-highlight':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/core':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/dates':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(dayjs@1.11.19)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/dropzone':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/form':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(react@19.2.3)
       '@mantine/hooks':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(react@19.2.3)
       '@mantine/modals':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/notifications':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/nprogress':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/spotlight':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/tiptap':
-        specifier: ^8.3.10
+        specifier: ^8.3.7
         version: 8.3.10(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(@tiptap/extension-link@3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0))(@tiptap/react@3.14.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@phosphor-icons/react':
         specifier: ^2.1.10
         version: 2.1.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@settle/admin':
-        specifier: workspace:*
-        version: link:../../packages/admin
-      '@settle/core':
-        specifier: workspace:*
-        version: link:../../packages/core
       '@tanstack/react-query':
-        specifier: ^5.90.12
+        specifier: ^5.90.7
         version: 5.90.12(react@19.2.3)
       '@tiptap/extension-link':
-        specifier: ^3.14.0
+        specifier: ^3.10.4
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)
       '@tiptap/pm':
-        specifier: ^3.14.0
+        specifier: ^3.10.4
         version: 3.14.0
       '@tiptap/react':
-        specifier: ^3.14.0
+        specifier: ^3.10.4
         version: 3.14.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@tiptap/starter-kit':
-        specifier: ^3.14.0
+        specifier: ^3.10.4
         version: 3.14.0
+      '@types/leaflet':
+        specifier: ^1.9.21
+        version: 1.9.21
       axios:
         specifier: ^1.13.2
         version: 1.13.2
@@ -231,6 +228,12 @@ importers:
       embla-carousel-react:
         specifier: ^8.5.2
         version: 8.6.0(react@19.2.3)
+      leaflet:
+        specifier: ^1.9.4
+        version: 1.9.4
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       motion:
         specifier: ^12.23.26
         version: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -244,11 +247,11 @@ importers:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
       recharts:
-        specifier: ^3.6.0
+        specifier: ^3.4.1
         version: 3.6.0(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react-is@19.2.3)(react@19.2.3)(redux@5.0.1)
       zod:
-        specifier: ^3.23.8
-        version: 3.25.76
+        specifier: ^4.1.12
+        version: 4.2.1
       zustand:
         specifier: ^5.0.8
         version: 5.0.9(@types/react@19.2.7)(immer@11.1.0)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))
@@ -1301,6 +1304,9 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
+  '@types/geojson@7946.0.16':
+    resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
+
   '@types/js-cookie@3.0.6':
     resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
 
@@ -1309,6 +1315,9 @@ packages:
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+
+  '@types/leaflet@1.9.21':
+    resolution: {integrity: sha512-TbAd9DaPGSnzp6QvtYngntMZgcRk+igFELwR2N99XZn7RXUdKgsXMR+28bUO0rPsWp8MIu/f47luLIQuSLYv/w==}
 
   '@types/linkify-it@5.0.0':
     resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
@@ -2369,6 +2378,9 @@ packages:
   language-tags@1.0.9:
     resolution: {integrity: sha512-MbjN408fEndfiQXbFQ1vnd+1NoLDsnQW41410oQBXiyXDMYH5z505juWa4KUE1LqxRC7DgOgZDbKLxHIwm27hA==}
     engines: {node: '>=0.10'}
+
+  leaflet@1.9.4:
+    resolution: {integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -4099,11 +4111,17 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
+  '@types/geojson@7946.0.16': {}
+
   '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/leaflet@1.9.21':
+    dependencies:
+      '@types/geojson': 7946.0.16
 
   '@types/linkify-it@5.0.0': {}
 
@@ -4732,26 +4750,6 @@ snapshots:
       - eslint-plugin-import-x
       - supports-color
 
-  eslint-config-next@16.1.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
-    dependencies:
-      '@next/eslint-plugin-next': 16.1.0
-      eslint: 9.39.2(jiti@2.6.1)
-      eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-react: 7.37.5(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-react-hooks: 7.0.1(eslint@9.39.2(jiti@2.6.1))
-      globals: 16.4.0
-      typescript-eslint: 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-    optionalDependencies:
-      typescript: 5.9.3
-    transitivePeerDependencies:
-      - '@typescript-eslint/parser'
-      - eslint-import-resolver-webpack
-      - eslint-plugin-import-x
-      - supports-color
-
   eslint-config-prettier@10.1.8(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
@@ -4775,7 +4773,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -4814,33 +4812,6 @@ snapshots:
       tsconfig-paths: 3.15.0
     optionalDependencies:
       '@typescript-eslint/parser': 8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-    transitivePeerDependencies:
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-
-  eslint-plugin-import@2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1)):
-    dependencies:
-      '@rtsao/scc': 1.1.0
-      array-includes: 3.1.9
-      array.prototype.findlastindex: 1.2.6
-      array.prototype.flat: 1.3.3
-      array.prototype.flatmap: 1.3.3
-      debug: 3.2.7
-      doctrine: 2.1.0
-      eslint: 9.39.2(jiti@2.6.1)
-      eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
-      hasown: 2.0.2
-      is-core-module: 2.16.1
-      is-glob: 4.0.3
-      minimatch: 3.1.2
-      object.fromentries: 2.0.8
-      object.groupby: 1.0.3
-      object.values: 1.2.1
-      semver: 6.3.1
-      string.prototype.trimend: 1.0.9
-      tsconfig-paths: 3.15.0
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -5335,6 +5306,8 @@ snapshots:
   language-tags@1.0.9:
     dependencies:
       language-subtag-registry: 0.3.23
+
+  leaflet@1.9.4: {}
 
   levn@0.4.1:
     dependencies:

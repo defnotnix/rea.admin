@@ -1,11 +1,13 @@
 "use client";
 
 import { Modal, Stack, Text, LoadingOverlay } from "@mantine/core";
-import { useMutation } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { PropDataTableModalShell } from "../DataTableModalShell.type";
 import { useDataTableModalShellContext } from "../DataTableModalShell.context";
 import { DataTableWrapper } from "@settle/core";
+import { FormWrapper } from "@settle/core";
+
+export const useEditFormContext = FormWrapper.useForm;
 
 type ModalHandlerProps = Pick<
   PropDataTableModalShell,
@@ -54,88 +56,60 @@ export function ModalHandler({
 
   const { refetch } = DataTableWrapper.useDataTableContext();
 
-  // Create mutation
-  const createMutation = useMutation({
-    mutationFn: async (formData: any) => {
-      if (validator) {
-        validator.parse(formData);
-      }
-
-      const dataToSubmit = transformOnCreate ? transformOnCreate(formData) : formData;
-      return onCreateApi?.(dataToSubmit);
-    },
-    onSuccess: (res) => {
-      notifications.show({
-        title: "Success",
-        message: `${moduleTerm} created successfully`,
-        color: "green",
-      });
-      onCreateSuccess?.(res);
-      closeCreateModal();
-      refetch();
-    },
-    onError: (err: any) => {
-      if (err.name === "ZodError") {
-        const firstError = err.errors[0];
-        notifications.show({
-          title: "Validation Error",
-          message: `${firstError.path.join(".")}: ${firstError.message}`,
-          color: "red",
-        });
-      } else {
-        notifications.show({
-          title: "Error",
-          message: `Failed to create ${moduleTerm}`,
-          color: "red",
-        });
-      }
-    },
-  });
-
-  // Edit mutation
-  const editMutation = useMutation({
-    mutationFn: async (formData: any) => {
-      if (validator) {
-        validator.parse(formData);
-      }
-
-      const dataToSubmit = transformOnEdit ? transformOnEdit(formData) : formData;
-      return onEditApi?.(formData[idAccessor], dataToSubmit);
-    },
-    onSuccess: (res) => {
-      notifications.show({
-        title: "Success",
-        message: `${moduleTerm} updated successfully`,
-        color: "green",
-      });
-      onEditSuccess?.(res);
-      closeEditModal();
-      refetch();
-    },
-    onError: (err: any) => {
-      if (err.name === "ZodError") {
-        const firstError = err.errors[0];
-        notifications.show({
-          title: "Validation Error",
-          message: `${firstError.path.join(".")}: ${firstError.message}`,
-          color: "red",
-        });
-      } else {
-        notifications.show({
-          title: "Error",
-          message: `Failed to update ${moduleTerm}`,
-          color: "red",
-        });
-      }
-    },
-  });
-
-  const handleCreateFormSubmit = (formData: any) => {
-    createMutation.mutate(formData);
+  const handleCreateSuccess = (res: any) => {
+    notifications.show({
+      title: "Success",
+      message: `${moduleTerm} created successfully`,
+      color: "green",
+    });
+    onCreateSuccess?.(res);
+    closeCreateModal();
+    refetch();
   };
 
-  const handleEditFormSubmit = (formData: any) => {
-    editMutation.mutate(formData);
+  const handleCreateError = (err: any) => {
+    if (err.name === "ZodError") {
+      const firstError = err.errors[0];
+      notifications.show({
+        title: "Validation Error",
+        message: `${firstError.path.join(".")}: ${firstError.message}`,
+        color: "red",
+      });
+    } else {
+      notifications.show({
+        title: "Error",
+        message: `Failed to create ${moduleTerm}`,
+        color: "red",
+      });
+    }
+  };
+
+  const handleEditSuccess = (res: any) => {
+    notifications.show({
+      title: "Success",
+      message: `${moduleTerm} updated successfully`,
+      color: "green",
+    });
+    onEditSuccess?.(res);
+    closeEditModal();
+    refetch();
+  };
+
+  const handleEditError = (err: any) => {
+    if (err.name === "ZodError") {
+      const firstError = err.errors[0];
+      notifications.show({
+        title: "Validation Error",
+        message: `${firstError.path.join(".")}: ${firstError.message}`,
+        color: "red",
+      });
+    } else {
+      notifications.show({
+        title: "Error",
+        message: `Failed to update ${moduleTerm}`,
+        color: "red",
+      });
+    }
   };
 
   return (
@@ -151,15 +125,49 @@ export function ModalHandler({
         }
         size={modalWidth}
       >
-        <Stack gap="lg">
-          {createFormComponent ? (
-            <div>{createFormComponent}</div>
-          ) : (
-            <Text size="sm" color="dimmed">
-              No form component provided
-            </Text>
-          )}
-        </Stack>
+        <FormWrapper
+          queryKey={`create.${moduleTerm.toLowerCase()}`}
+          formName={`create-${moduleTerm.toLowerCase()}`}
+          mode="uncontrolled"
+          initial={{}}
+          steps={1}
+          validation={[]}
+          disabledSteps={[]}
+          primaryKey={idAccessor}
+          apiSubmitFn={async (data: any) => {
+            const dataToSubmit = transformOnCreate ? transformOnCreate(data) : data;
+            return onCreateApi?.(dataToSubmit);
+          }}
+          transformFnSubmit={(formdata) => formdata}
+          formClearOnSuccess={true}
+          submitSuccessFn={(res) => handleCreateSuccess(res)}
+          submitErrorFn={(err) => handleCreateError(err)}
+          notifications={{
+            isLoading: () => {},
+            isSuccess: () => {},
+            isWarning: () => {},
+            isError: () => {},
+            isValidationError: () => {},
+            isValidationStepError: () => {},
+            isInfo: () => {},
+          }}
+        >
+          <Stack gap="lg">
+            {createFormComponent ? (
+              typeof createFormComponent === "function" ? (
+                (createFormComponent as (props: { isCreate: boolean }) => React.ReactNode)({
+                  isCreate: true,
+                })
+              ) : (
+                <div>{createFormComponent as React.ReactNode}</div>
+              )
+            ) : (
+              <Text size="sm" color="dimmed">
+                No form component provided
+              </Text>
+            )}
+          </Stack>
+        </FormWrapper>
       </Modal>
 
       {/* Edit Modal */}
@@ -176,10 +184,44 @@ export function ModalHandler({
         <Stack gap="lg" pos="relative">
           <LoadingOverlay visible={editLoading} />
           {editFormComponent && activeEditRecord ? (
-            <div>{editFormComponent}</div>
+            <FormWrapper
+              queryKey={`edit.${moduleTerm.toLowerCase()}`}
+              formName={`edit-${moduleTerm.toLowerCase()}`}
+              mode="uncontrolled"
+              initial={activeEditRecord}
+              steps={1}
+              validation={[]}
+              disabledSteps={[]}
+              primaryKey={idAccessor}
+              apiSubmitFn={async (data: any) => {
+                const dataToSubmit = transformOnEdit ? transformOnEdit(data) : data;
+                return onEditApi?.(data[idAccessor], dataToSubmit);
+              }}
+              transformFnSubmit={(formdata) => formdata}
+              formClearOnSuccess={false}
+              submitSuccessFn={(res) => handleEditSuccess(res)}
+              submitErrorFn={(err) => handleEditError(err)}
+              notifications={{
+                isLoading: () => {},
+                isSuccess: () => {},
+                isWarning: () => {},
+                isError: () => {},
+                isValidationError: () => {},
+                isValidationStepError: () => {},
+                isInfo: () => {},
+              }}
+            >
+              <Stack gap="lg">
+                {typeof editFormComponent === "function"
+                  ? (editFormComponent as (props: { isCreate: boolean }) => React.ReactNode)({
+                      isCreate: false,
+                    })
+                  : (editFormComponent as React.ReactNode)}
+              </Stack>
+            </FormWrapper>
           ) : (
             <Text size="sm" color="dimmed">
-              No form component provided
+              {activeEditRecord ? "Loading..." : "No form component provided"}
             </Text>
           )}
         </Stack>

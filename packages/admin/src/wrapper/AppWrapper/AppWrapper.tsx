@@ -24,16 +24,12 @@ export function AppWrapper({
 
   children,
 }: PropAppWrapper) {
-  if (typeof window === "undefined") {
-    console.warn("Rendering AppWrapper on server");
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <ColorSchemeScript
           nonce="8IBTHwOdqNKAWeKl7plt8g=="
-          defaultColorScheme={"light"}
+          defaultColorScheme={"auto"}
         />
         <title>{title}</title>
         {extraHeadTags}
@@ -42,8 +38,12 @@ export function AppWrapper({
         className={cx(classes.root, {
           [classNames.body]: classNames.body,
         })}
+        suppressHydrationWarning
       >
-        <MantineProvider theme={theme} forceColorScheme={"light"}>
+        <MantineProvider
+          theme={theme}
+          defaultColorScheme={"auto"}
+        >
           <ModalsProvider>
             <Notifications />
             {children}

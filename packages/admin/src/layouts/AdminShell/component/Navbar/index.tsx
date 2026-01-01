@@ -222,7 +222,7 @@ export function AdminShellNavbar({
   return (
     <Stack gap={0} className={classes.navContainer}>
       {/* Top Section */}
-      <Paper bg="gray.3" radius={0} py={4}>
+      <Paper radius={0} py={4}>
         <TextInput
           ref={searchInputRef}
           variant="unstyled"

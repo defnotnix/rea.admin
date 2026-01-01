@@ -73,6 +73,14 @@ export type PropDataTableShell = PropSustained &
     sortStatus?: any;
     newButtonHref?: string;
     onNewClick?: () => void;
+    onEditClick?: (record: any) => void;
+    onDeleteClick?: (ids: (string | number)[]) => void;
+    onReviewClick?: (record: any) => void;
   };
 
-export type PropDataTableShellActions = PropIdAccessor & PropSustained;
+export type PropDataTableShellActions = PropIdAccessor & PropSustained & {
+  onNewClick?: () => void;
+  onEditClick?: (record: any) => void;
+  onDeleteClick?: (ids: (string | number)[]) => void;
+  onReviewClick?: (record: any) => void;
+};

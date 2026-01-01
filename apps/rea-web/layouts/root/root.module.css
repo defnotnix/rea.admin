@@ -1,0 +1,18 @@
+.backdrop {
+  position: fixed;
+  display: block;
+  height: 300px;
+  width: 1000px;
+  background: linear-gradient(#1061da, var(--mantine-color-brand-5));
+  z-index: -1;
+  top: calc(50vh - 150px);
+  left: calc(50% - 500px);
+  filter: blur(100);
+  transform: rotate(-20deg);
+  opacity: 0.1;
+}
+
+html,
+body {
+  background: #0d0d17 !important;
+}

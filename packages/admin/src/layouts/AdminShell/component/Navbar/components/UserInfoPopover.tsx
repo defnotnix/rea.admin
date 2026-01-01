@@ -6,6 +6,7 @@ import {
   Menu,
   Paper,
   Text,
+  useMantineColorScheme,
 } from "@mantine/core";
 import {
   BellSlashIcon,
@@ -18,25 +19,22 @@ import {
   SignOutIcon,
   SunIcon,
 } from "@phosphor-icons/react";
-import { useState } from "react";
 
 import classes from "../Navbar.module.css";
 
 export function UserInfoPopover() {
-  const [theme, setTheme] = useState<string | null>("system");
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   return (
     <Menu shadow="md" position="right" withArrow>
       <Menu.Target>
         <Paper
-          bg="white"
           px="md"
           py={"xs"}
           radius={0}
           className={classes.userInfoButton}
           style={{
             cursor: "pointer",
-            borderTop: "1px solid var(--mantine-color-gray-3)",
           }}
         >
           <Group wrap="nowrap" justify="space-between">
@@ -102,21 +100,30 @@ export function UserInfoPopover() {
           <Text size="xs">Theme</Text>
         </Menu.Label>
 
-        <Menu.Item onClick={() => setTheme("light")}>
+        <Menu.Item
+          onClick={() => setColorScheme("light")}
+          rightSection={colorScheme === "light" ? "✓" : undefined}
+        >
           <Group gap="xs" justify="space-between">
             <Text size="xs">Light</Text>
             <SunIcon size={14} />
           </Group>
         </Menu.Item>
 
-        <Menu.Item onClick={() => setTheme("dark")}>
+        <Menu.Item
+          onClick={() => setColorScheme("dark")}
+          rightSection={colorScheme === "dark" ? "✓" : undefined}
+        >
           <Group gap="xs" justify="space-between">
             <Text size="xs">Dark</Text>
             <MoonIcon size={14} />
           </Group>
         </Menu.Item>
 
-        <Menu.Item onClick={() => setTheme("system")}>
+        <Menu.Item
+          onClick={() => setColorScheme("auto")}
+          rightSection={colorScheme === "auto" ? "✓" : undefined}
+        >
           <Group gap="xs" justify="space-between">
             <Text size="xs">System</Text>
             <PlanetIcon size={14} />

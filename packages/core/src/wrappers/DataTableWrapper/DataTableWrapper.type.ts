@@ -1,5 +1,6 @@
 export type PropDataTablePaginationResponse = {
   pages: number;
+  totalItems?: number;
   next?: String;
   previous?: string;
 };

@@ -26,6 +26,7 @@ const useDataTableWrapperStore = create(
       page: 1,
       pages: 1,
       pageSize: 25,
+      totalItems: 0,
       search: "",
       filters: [] as FilterType[], // Explicity Type Definition
     },
@@ -36,18 +37,15 @@ const useDataTableWrapperStore = create(
         return set({ search });
       }, 500);
 
-      const setDebouncedPage = debounce((page: number) => {
-        return set({ page });
-      }, 500);
-
       return {
         setPaginationData: (paginationData: any) => {
           set((state) => ({
             pages: paginationData.pages,
+            totalItems: paginationData.totalItems || 0,
           }));
         },
 
-        setPage: (page: number) => setDebouncedPage(page),
+        setPage: (page: number) => set({ page }),
 
         setSearch: (search: string) => setDebouncedSearch(search),
 

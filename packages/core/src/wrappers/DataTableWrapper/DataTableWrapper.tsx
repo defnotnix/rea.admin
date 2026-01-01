@@ -52,10 +52,13 @@ export function DataTableWrapper<T>({
   const {
     data = [],
     isLoading,
+    isFetching,
     isError,
     refetch,
   } = useQuery<T[]>({
-    queryKey: queryKey.split("."),
+    queryKey: enableServerQuery
+      ? [...queryKey.split("."), page, pageSize, search, filters]
+      : queryKey.split("."),
     queryFn: queryGetFn
       ? async () => {
           try {
@@ -117,7 +120,7 @@ export function DataTableWrapper<T>({
     <DataTableContext
       value={{
         data: getSelectiveData,
-        isLoading,
+        isLoading: isLoading || isFetching,
         isError,
         refetch,
       }}

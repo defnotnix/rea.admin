@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 import { Box, ActionIcon, Group, Text, Stack } from "@mantine/core";
-import { Trash, Warning, PencilIcon } from "@phosphor-icons/react";
+import { Trash, Warning, PencilIcon, WarningIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 
@@ -56,6 +56,10 @@ export function DataTableModalShell({
   createFormComponent,
   editFormComponent,
 
+  // Review
+  onReviewClick,
+  hasReviewPage = false,
+
   // Validator
   validator,
 }: PropDataTableModalShell) {
@@ -76,12 +80,30 @@ export function DataTableModalShell({
     editLoading,
     openCreateModal: handlersCreateModal.open,
     closeCreateModal: handlersCreateModal.close,
-    openEditModal: (record: any) => {
-      setActiveEditRecord(record);
-      handlersEditModal.open();
+    openEditModal: async (record: any) => {
+      setEditLoading(true);
+      try {
+        // If onEditTrigger is provided, use it to fetch/transform the record
+        const finalRecord = onEditTrigger ? await onEditTrigger(record) : record;
+        setActiveEditRecord(finalRecord);
+        handlersEditModal.open();
+      } catch (error) {
+        console.error("Error in onEditTrigger:", error);
+        notifications.show({
+          title: "Error",
+          message: "Failed to load record details",
+          color: "red",
+        });
+        // Still set the original record if fetch fails
+        setActiveEditRecord(record);
+        handlersEditModal.open();
+      } finally {
+        setEditLoading(false);
+      }
     },
     closeEditModal: handlersEditModal.close,
     setEditLoading,
+    setActiveEditRecord,
   };
 
   // * MUTATIONS
@@ -118,7 +140,7 @@ export function DataTableModalShell({
         title: (
           <Group>
             <ActionIcon size="sm" color="red" variant="light">
-              <Warning size={12} />
+              <WarningIcon size={12} />
             </ActionIcon>
             <Text size="sm" fw={600}>
               Confirm deletion
@@ -127,9 +149,7 @@ export function DataTableModalShell({
         ),
         children: (
           <Stack py="md">
-            <Text size="xs">
-              This action cannot be undone.
-            </Text>
+            <Text size="xs">This action cannot be undone.</Text>
             <Text size="xs" fw={600}>
               Are you sure?
             </Text>
@@ -152,53 +172,54 @@ export function DataTableModalShell({
     [deleteMutation]
   );
 
-  // * ENHANCED COLUMNS WITH ACTIONS
-
-  const finalColumns = !disableActions && (onEditApi || onDeleteApi)
-    ? [
-        ...columns,
-        {
-          accessor: "actions",
-          title: "Actions",
-          width: 80,
-          textAlign: "right" as const,
-          render: (row: any) => (
-            <Group gap={4} justify="flex-end">
-              {onEditApi && (
-                <ActionIcon
-                  size="sm"
-                  variant="light"
-                  onClick={() => contextValue.openEditModal(row)}
-                  title="Edit"
-                >
-                  <PencilIcon size={14} />
-                </ActionIcon>
-              )}
-              {onDeleteApi && (
-                <ActionIcon
-                  size="sm"
-                  color="red"
-                  variant="light"
-                  onClick={() => handleDelete(row[idAccessor])}
-                  title="Delete"
-                >
-                  <Trash size={14} />
-                </ActionIcon>
-              )}
-            </Group>
-          ),
+  const handleBulkDelete = useCallback(
+    (ids: (string | number)[]) => {
+      modals.openConfirmModal({
+        title: (
+          <Group>
+            <ActionIcon size="sm" color="red" variant="light">
+              <WarningIcon size={12} />
+            </ActionIcon>
+            <Text size="sm" fw={600}>
+              Confirm deletion
+            </Text>
+          </Group>
+        ),
+        children: (
+          <Stack py="md">
+            <Text size="xs">This action cannot be undone.</Text>
+            <Text size="xs" fw={600}>
+              Are you sure you want to delete {ids.length} item{ids.length === 1 ? "" : "s"}?
+            </Text>
+          </Stack>
+        ),
+        labels: { confirm: "Delete", cancel: "Cancel" },
+        confirmProps: { color: "red", size: "xs" },
+        cancelProps: { size: "xs" },
+        onConfirm: () => {
+          ids.forEach((id) => deleteMutation.mutate(id));
         },
-      ]
-    : columns;
+        styles: {
+          header: {
+            background: "var(--mantine-color-red-1)",
+          },
+        },
+        size: "sm",
+      });
+    },
+    [deleteMutation]
+  );
+
+  // * ENHANCED COLUMNS WITH ACTIONS
 
   return (
     <Context.Provider value={contextValue}>
       <DataTableShell
-        sustained={sustained}
+        sustained={true}
         moduleInfo={moduleInfo}
         tabs={tabs}
         idAccessor={idAccessor}
-        columns={finalColumns}
+        columns={columns}
         tableActions={tableActions}
         rowColor={rowColor}
         rowBackgroundColor={rowBackgroundColor}
@@ -209,6 +230,11 @@ export function DataTableModalShell({
         disableActions={true}
         hideFilters={hideFilters}
         filterList={filterList}
+
+        onNewClick={contextValue.openCreateModal}
+        onEditClick={(record: any) => contextValue.openEditModal(record)}
+        onDeleteClick={handleBulkDelete}
+        onReviewClick={onReviewClick}
       />
 
       {onCreateApi || onEditApi ? (

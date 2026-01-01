@@ -1,14 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import {
-  Button,
-  ButtonGroup,
-  Group,
-  Menu,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { Button, ButtonGroup, Group, Menu, Stack, Text } from "@mantine/core";
 import {
   ArrowClockwiseIcon,
   CaretDownIcon,
@@ -18,7 +11,6 @@ import {
 import { DataTableWrapper } from "@settle/core";
 import { PropDataTableHeader } from "../../DataTableShell.type";
 import { useModalForm } from "../../context/ModalFormContext";
-import { useDataTableModalShellContext } from "../../DataTableModalShell/DataTableModalShell.context";
 
 export function DataTableShellHeader({
   moduleInfo,
@@ -40,86 +32,94 @@ export function DataTableShellHeader({
     modalContext = undefined;
   }
 
-  let dataTableModalContext: ReturnType<typeof useDataTableModalShellContext> | undefined;
-  try {
-    dataTableModalContext = useDataTableModalShellContext();
-  } catch (e) {
-    // DataTableModalShell context not available
-    dataTableModalContext = undefined;
-  }
+  // let dataTableModalContext: ReturnType<typeof useDataTableModalShellContext> | undefined;
+  // try {
+  //   dataTableModalContext = useDataTableModalShellContext();
+  // } catch (e) {
+  //   // DataTableModalShell context not available
+  //   dataTableModalContext = undefined;
+  // }
 
   const handleNewClick = sustained
-    ? onNewClick || dataTableModalContext?.openCreateModal || modalContext?.openModal
+    ? onNewClick ||
+      // dataTableModalContext?.openCreateModal ||
+      modalContext?.openModal
     : undefined;
 
   return (
-    <Stack p="md" gap="sm">
-      <Group justify="space-between">
-        <div>
-          <Text size="xl">{moduleInfo.label}</Text>
-          <Text size="xs" opacity={0.5}>
-            {moduleInfo.description}
-          </Text>
-        </div>
+    <div suppressHydrationWarning>
+      <Stack p="md" gap="sm">
+        <Group justify="space-between">
+          <div>
+            <Text size="xl">{moduleInfo.label}</Text>
+            <Text size="xs" opacity={0.5}>
+              {moduleInfo.description}
+            </Text>
+          </div>
 
-        <Group gap={4}>
-          <Menu>
-            <Menu.Target>
-              <Button
-                rightSection={<CaretDownIcon />}
-                size="xs"
-                variant="subtle"
-                color="dark"
-              >
-                More Actions
-              </Button>
-            </Menu.Target>
-            <Menu.Dropdown>{/* future actions */}</Menu.Dropdown>
-          </Menu>
+          <Group gap={4} suppressHydrationWarning>
+            <div suppressHydrationWarning>
+              <Menu>
+                <Menu.Target>
+                  <Button
+                    rightSection={<CaretDownIcon />}
+                    size="xs"
+                    variant="subtle"
+                    color="dark"
+                  >
+                    More Actions
+                  </Button>
+                </Menu.Target>
+                <Menu.Dropdown>{/* future actions */}</Menu.Dropdown>
+              </Menu>
+            </div>
 
-          <Button
-            leftSection={<ArrowClockwiseIcon />}
-            size="xs"
-            variant="light"
-            color="dark"
-            onClick={() => {
-              refetch();
-            }}
-          >
-            Reload Data
-          </Button>
+            <Button
+              leftSection={<ArrowClockwiseIcon />}
+              size="xs"
+              variant="light"
+              color="dark"
+              onClick={() => {
+                refetch();
+              }}
+            >
+              Reload Data
+            </Button>
 
-          <ButtonGroup>
-            {sustained && handleNewClick ? (
-              <Button
-                onClick={handleNewClick}
-                size="xs"
-                leftSection={<PlusIcon />}
-              >
-                New {moduleInfo.label}
-              </Button>
-            ) : (
-              <Button
-                component="a"
-                href={finalHref}
-                size="xs"
-                leftSection={<PlusIcon />}
-              >
-                New {moduleInfo.label}
-              </Button>
-            )}
-
-            <Menu>
-              <Menu.Target>
-                <Button size="xs" px={8} ml={1}>
-                  <CaretDownIcon />
+            <ButtonGroup>
+              {sustained && handleNewClick ? (
+                <Button
+                  onClick={handleNewClick}
+                  size="xs"
+                  leftSection={<PlusIcon />}
+                >
+                  New {moduleInfo.label}
                 </Button>
-              </Menu.Target>
-              <Menu.Dropdown>{/* future actions */}</Menu.Dropdown>
-            </Menu>
-          </ButtonGroup>
+              ) : (
+                <Button
+                  component="a"
+                  href={finalHref}
+                  size="xs"
+                  leftSection={<PlusIcon />}
+                >
+                  New {moduleInfo.label}
+                </Button>
+              )}
+
+              <div suppressHydrationWarning>
+                <Menu>
+                  <Menu.Target>
+                    <Button size="xs" px={8} ml={1}>
+                      <CaretDownIcon />
+                    </Button>
+                  </Menu.Target>
+                  <Menu.Dropdown>{/* future actions */}</Menu.Dropdown>
+                </Menu>
+              </div>
+            </ButtonGroup>
+          </Group>
         </Group>
-      </Group>
-    </Stack>
+      </Stack>
+    </div>
   );
 }

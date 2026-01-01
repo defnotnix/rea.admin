@@ -3,32 +3,41 @@
 import axios from "axios";
 
 async function handleTokenExpiry() {
-  const res = await axios
-    .post(
-      "/authenticate/refresh/token/",
-      {},
-      {
-        headers: {
-          Authorization: "DuqbarAzemn " + sessionStorage.getItem("kcatoken"),
-        },
-      }
-    )
-    .then((e) => {
-      console.log(e);
-      sessionStorage.setItem("kcatoken", e?.headers?.xauthorization);
-      return true;
-    })
-    .catch((err) => {
-      console.log(err);
-      return false;
+  const refreshToken = sessionStorage.getItem("kcrtoken");
+
+  if (!refreshToken) {
+    console.error("No refresh token available");
+    return false;
+  }
+
+  try {
+    const response = await axios.post("/api/auth/token/refresh/", {
+      refresh: refreshToken
     });
 
-  console.log("Token Expired, Calling Refresh Token");
+    if (response.data.access) {
+      sessionStorage.setItem("kcatoken", response.data.access);
+      console.log("Token refreshed successfully");
+      return true;
+    }
 
-  return res;
+    return false;
+  } catch (err) {
+    console.error("Token refresh failed:", err);
+    return false;
+  }
 }
 
-function triggerLogout(res: any) {}
+function triggerLogout(res: any) {
+  // Clear tokens
+  sessionStorage.removeItem("kcatoken");
+  sessionStorage.removeItem("kcrtoken");
+
+  // Trigger navigation to login page
+  if (typeof window !== "undefined") {
+    window.location.href = "/login";
+  }
+}
 
 export async function get({
   endpoint = "",
@@ -42,7 +51,7 @@ export async function get({
       params,
 
       headers: {
-        Authorization: "DuqbarAzemn " + sessionStorage.getItem("kcatoken"),
+        Authorization: "Bearer " + sessionStorage.getItem("kcatoken"),
       },
     });
 
@@ -96,7 +105,7 @@ export async function post({
     const response = await axios.post(endpoint, body, {
       headers: {
         ...headers,
-        Authorization: "DuqbarAzemn " + sessionStorage.getItem("kcatoken"),
+        Authorization: "Bearer " + sessionStorage.getItem("kcatoken"),
       },
     });
     console.log(response);
@@ -143,7 +152,7 @@ export async function patch({
     const response = await axios.patch(endpoint, body, {
       headers: {
         ...headers,
-        Authorization: "DuqbarAzemn " + sessionStorage.getItem("kcatoken"),
+        Authorization: "Bearer " + sessionStorage.getItem("kcatoken"),
       },
     });
     return {
@@ -188,7 +197,7 @@ export async function del({
     const response = await axios.delete(endpoint + id + "/", {
       headers: {
         ...headers,
-        Authorization: "DuqbarAzemn " + sessionStorage.getItem("kcatoken"),
+        Authorization: "Bearer " + sessionStorage.getItem("kcatoken"),
       },
     });
     return {

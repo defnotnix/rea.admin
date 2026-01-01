@@ -62,59 +62,62 @@ export function AdminShellHeader({ navModules }: AdminShellHeaderProps) {
   );
 
   return (
-    <div>
+    <Group gap={0} h={50} wrap="nowrap" style={{ width: "100%" }}>
       {/* Left Section: Logo */}
-      <Group gap={0}>
-        <Group
-          style={{
-            borderRight: "1px solid var(--mantine-color-gray-3)",
-          }}
-        >
-          <Group px="lg" h={50} gap="xs" w={299}>
-            <Text fw={900} size="sm" c="brand.6">
-              REA
-            </Text>
-            <Text fw={600} size="sm">
-              Admin Portal
-            </Text>
-          </Group>
-        </Group>
-
-        {/* Center Section: Breadcrumbs */}
-        <Group
-          h={50}
-          px="sm"
-          justify="space-between"
-          gap={0}
-          w="calc(100vw - 315px)"
-        >
-          <Breadcrumbs>{breadcrumbs}</Breadcrumbs>
-
-          {/* Right Section: Module Selector */}
-          <Card
-            radius="md"
-            p="xs"
-            withBorder
-            className={classes.moduleSelector}
-          >
-            <Group wrap="nowrap" justify="space-between" gap="xs">
-              <Group gap="xs">
-                <Avatar size="xs" variant="filled" color="dark.9">
-                  <AvocadoIcon weight="fill" />
-                </Avatar>
-                <div>
-                  <Text fw={600} size="xs">
-                    General Admin
-                  </Text>
-                </div>
-              </Group>
-              <ActionIcon size="xs" variant="subtle">
-                <CaretUpDownIcon />
-              </ActionIcon>
-            </Group>
-          </Card>
-        </Group>
+      <Group
+        px="lg"
+        h={50}
+        gap="xs"
+        w={299}
+        style={{
+          borderRight:
+            "1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-gray-8))",
+          flexShrink: 0,
+        }}
+      >
+        <Text fw={900} size="sm" c="brand.6">
+          REA
+        </Text>
+        <Text fw={600} size="sm">
+          Admin Portal
+        </Text>
       </Group>
-    </div>
+
+      {/* Center Section: Breadcrumbs */}
+      <Group
+        h={50}
+        pl="sm"
+        justify="space-between"
+        gap="md"
+        wrap="nowrap"
+        style={{ flex: 1, minWidth: 0 }}
+      >
+        <Breadcrumbs separatorMargin={8}>
+          <Text fw={600} size="xs">
+            REA.Admin
+          </Text>
+          {breadcrumbs}
+        </Breadcrumbs>
+
+        {/* Right Section: Module Selector */}
+        <Card bg="none" radius="md" h={50} className={classes.moduleSelector}>
+          <Group wrap="nowrap" justify="space-between" gap="xs">
+            <Group gap="xs">
+              <Avatar size="xs" variant="filled" color="dark.9">
+                <AvocadoIcon weight="fill" />
+              </Avatar>
+              <div>
+                <Text fw={600} size="xs">
+                  General Admin
+                </Text>
+              </div>
+            </Group>
+            <ActionIcon size="xs" variant="subtle">
+              <CaretUpDownIcon />
+            </ActionIcon>
+          </Group>
+        </Card>
+      </Group>
+    </Group>
   );
 }

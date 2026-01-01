@@ -30,6 +30,9 @@ export function DataTableShell({
   filterList = [],
   newButtonHref,
   onNewClick,
+  onEditClick,
+  onDeleteClick,
+  onReviewClick,
 }: PropDataTableShell) {
   // * CONTEXT
 
@@ -78,10 +81,20 @@ export function DataTableShell({
   return (
     <DataTableShellContext.Provider value={contextValue}>
       <Stack gap={0}>
-        <DataTableShellHeader moduleInfo={moduleInfo} newButtonHref={newButtonHref} sustained={sustained} onNewClick={onNewClick} />
+        <DataTableShellHeader
+          moduleInfo={moduleInfo}
+          newButtonHref={newButtonHref}
+          sustained={sustained}
+          onNewClick={onNewClick}
+        />
 
         {/* Tabs */}
-        <Tabs px={0} active={activeTab} onTabChange={setActiveTab} tabs={tabs} />
+        <Tabs
+          px={0}
+          active={activeTab}
+          onTabChange={setActiveTab}
+          tabs={tabs}
+        />
 
         {/* Toolbar */}
         <DataTableShellToolbar
@@ -113,6 +126,9 @@ export function DataTableShell({
           <DataTableShellTableActions
             idAccessor={idAccessor}
             sustained={sustained}
+            onEditClick={onEditClick}
+            onDeleteClick={onDeleteClick}
+            onReviewClick={onReviewClick}
           />
         </Box>
       </Stack>
