@@ -21,7 +21,7 @@ import { PreferenceWrapper, RolePermsWrapper } from "@settle/core";
 export function LayoutApp({ children }: PropsWithChildren) {
   return (
     <QueryWrapper
-      apiProvider={"http://api.rastraekikaranabhiyan.com"}
+      apiProvider={"https://api.rastraekikaranabhiyan.com"}
       withCredentials={false}
       timeout={5000}
       queryProps={{
